@@ -1,11 +1,45 @@
+'use client'
+
 import Header from '@/components/header/Header'
 import Task from '@/components/tasks/Task'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { parseCookies } from 'nookies'
+import axios from 'axios'
 
-const page = () => {
+interface Task {
+  id: number
+  nome: string
+  hora: string
+  feito: boolean
+}
+
+const Page = () => {
+  const cookies = parseCookies()
+  const jwt = cookies.jwtToken
+  const encodedJwt = encodeURIComponent(jwt)
+  const [tasks, setTasks] = useState<Task[]>([])
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:6969/tasks/${encodedJwt}`,
+        )
+        const TasksData: Task[] = response.data
+        setTasks(TasksData)
+        console.log(TasksData)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchTasks()
+    console.log(tasks)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <main className="h-full w-full bg-zinc-900">
-      <Header />
+      <Header jwt={jwt} />
       <section className="mt-24 w-full px-64">
         {/* <Header /> */}
         <div className="flex items-center justify-between">
@@ -15,24 +49,39 @@ const page = () => {
               Tarefas criadas
             </div>
             <div className="inline-flex h-[19px] w-6 flex-col items-center justify-center gap-2.5 rounded-[999px] bg-zinc-800 px-2 py-0.5">
-              <div className="text-xs font-bold text-zinc-300">5</div>
+              <div className="text-xs font-bold text-zinc-300">
+                {tasks.length === 0 && 0}
+                {tasks.length > 0 && tasks.length}
+              </div>
             </div>
           </div>
           {/* <Tarefas Concluidas /> */}
-          <div className="inline-flex h-[19px] w-[138px] items-center justify-start gap-2">
+          <div className="inline-flex h-[19px] w-fit items-center justify-start gap-2">
             <div className="text-sm font-bold text-indigo-400">Concluídas</div>
-            <div className="inline-flex flex-col items-center justify-center gap-2.5 rounded-[999px] bg-zinc-800 px-2 py-0.5">
-              <div className="text-xs font-bold text-zinc-300">2 de 5</div>
+            <div className="inline-flex flex-col items-center justify-center gap-3 rounded-[999px] bg-zinc-800 px-2 py-1">
+              <div className="text-xs font-bold text-zinc-300">
+                {tasks.filter((task) => task.feito).length} de {tasks.length}
+              </div>
             </div>
           </div>
         </div>
         {/* <Tarefas Criadas /> */}
-        <div className="mt-10 flex flex-col items-center justify-center">
-          <Task />
+        <div className="mt-10 flex flex-col items-center justify-center gap-2 text-white">
+          {tasks.length === 0 && <p>Voce não tem tarefas!</p>}
+          {tasks.length > 0 &&
+            tasks.map((task) => (
+              <Task
+                key={task.id}
+                id={task.id}
+                nome={task.nome}
+                hora={task.hora}
+                feito={task.feito}
+              />
+            ))}
         </div>
       </section>
     </main>
   )
 }
 
-export default page
+export default Page

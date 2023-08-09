@@ -6,6 +6,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import axios from 'axios'
+import { setCookie } from 'nookies'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -28,6 +29,7 @@ const Login = () => {
         const jwtToken = response.data // Substitua 'jwt' pelo nome correto do campo do JWT na resposta
         setJwt(jwtToken)
         window.location.href = '/todos'
+        setCookie(null, 'jwtToken', jwtToken)
         console.log(jwt)
       } else {
         console.log('Erro na solicitação:', response.status, response.data)
