@@ -9,9 +9,10 @@ type TaksProps = {
   hora: string
   id: number
   feito: boolean
+  desc?: string
 }
 
-const Task = ({ nome, hora, feito, id }: TaksProps) => {
+const Task = ({ nome, hora, feito, id, desc }: TaksProps) => {
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
   const deleteTask = async () => {
@@ -37,7 +38,7 @@ const Task = ({ nome, hora, feito, id }: TaksProps) => {
   }
 
   return (
-    <div className="inline-flex  w-full items-start justify-start gap-3 rounded border border-zinc-800 bg-neutral-800 p-5 shadow">
+    <div className="inline-flex w-full items-start justify-start gap-3 rounded border border-zinc-800 bg-neutral-800 p-5 shadow">
       {!feito && (
         <div className="inline-flex  w-full items-start justify-start gap-3 rounded border border-zinc-800 bg-neutral-800 p-5 shadow">
           <div>
@@ -49,6 +50,17 @@ const Task = ({ nome, hora, feito, id }: TaksProps) => {
           <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
             {hora}
           </div>
+          {desc === null && (
+            <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
+              Sem descrição!
+            </div>
+          )}
+          {desc !== null && (
+            <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
+              {desc}
+            </div>
+          )}
+
           <button onClick={deleteTask}>
             <Trash />
           </button>

@@ -5,15 +5,18 @@ import Task from '@/components/tasks/Task'
 import React, { useEffect, useState } from 'react'
 import { parseCookies } from 'nookies'
 import axios from 'axios'
+import CircularProgress from '@mui/material/CircularProgress/CircularProgress'
 
 interface Task {
   id: number
   nome: string
   hora: string
   feito: boolean
+  desc?: string
 }
 
 const Page = () => {
+  const [loading, setLoading] = useState(true)
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
   const encodedJwt = encodeURIComponent(jwt)
@@ -27,6 +30,7 @@ const Page = () => {
         )
         const TasksData: Task[] = response.data
         setTasks(TasksData)
+        setLoading(false)
         console.log(TasksData)
       } catch (error) {
         console.error(error)
@@ -38,9 +42,9 @@ const Page = () => {
   }, [])
 
   return (
-    <main className="h-full w-full bg-zinc-900">
+    <main className="min-h-screen w-full bg-zinc-900">
       <Header jwt={jwt} />
-      <section className="mt-24 w-full px-64">
+      <section className="mt-24 h-full w-full px-64">
         {/* <Header /> */}
         <div className="flex items-center justify-between">
           {/* <Tarefas Criadas /> */}
@@ -66,8 +70,9 @@ const Page = () => {
           </div>
         </div>
         {/* <Tarefas Criadas /> */}
-        <div className="mt-10 flex flex-col items-center justify-center gap-2 text-white">
-          {tasks.length === 0 && <p>Voce não tem tarefas!</p>}
+        <div className="flex flex-col items-center justify-center gap-2 py-10 text-white">
+          {loading && <CircularProgress />}
+          {!loading && tasks.length === 0 && <p>Adicione uma tarefa!</p>}
           {tasks.length > 0 &&
             tasks.map((task) => (
               <Task
@@ -76,6 +81,7 @@ const Page = () => {
                 nome={task.nome}
                 hora={task.hora}
                 feito={task.feito}
+                desc={task.desc}
               />
             ))}
         </div>

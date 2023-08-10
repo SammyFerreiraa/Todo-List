@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import PlusCircle from '../icons/PlusCircle'
 import axios from 'axios'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 type PropsJwt = {
   jwt: string
@@ -9,19 +17,26 @@ type PropsJwt = {
 const Header = ({ jwt }: PropsJwt) => {
   const [nome, setNome] = useState('')
   const [hora, setHora] = useState('')
+  const [dias, setDias] = useState('')
 
   useEffect(() => {
     console.log(jwt)
   }, [jwt])
 
+  const handleSelectDay = (dia: string) => {
+    setDias(dia)
+  }
+
   const handleOnRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (nome === '' || hora === '') return
+
     const addTask = async () => {
       await axios.post('http://localhost:6969/insert', {
         nome,
         hora,
+        dias,
         jwt,
       })
     }
@@ -38,8 +53,25 @@ const Header = ({ jwt }: PropsJwt) => {
       </div>
       <form
         onSubmit={handleOnRegister}
-        className="absolute -bottom-6 flex max-h-14 w-3/4  gap-2"
+        className="absolute -bottom-6 flex max-h-14 w-3/4 gap-2"
       >
+        <Select value={dias} onValueChange={handleSelectDay}>
+          <SelectTrigger className="w-[1000px]">
+            <SelectValue placeholder="Selecione o dia" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="Segunda">Segunda-Feira</SelectItem>
+              <SelectItem value="Terca">Terça-Feira</SelectItem>
+              <SelectItem value="Quarta">Quarta-Feira</SelectItem>
+              <SelectItem value="Quinta">Quinta-Feira</SelectItem>
+              <SelectItem value="Sexta">Sexta-Feira</SelectItem>
+              <SelectItem value="Sabado">Sabado</SelectItem>
+              <SelectItem value="Domingo">Domingo</SelectItem>
+              <SelectItem value="Todos">Todos os dias</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
         <input
           type="text"
           autoComplete="off"
