@@ -13,14 +13,16 @@ interface Task {
   hora: string
   feito: boolean
   desc?: string
+  dias?: string
 }
 
 const Page = () => {
   const [loading, setLoading] = useState(true)
+  const [tasks, setTasks] = useState<Task[]>([])
+  const [openModal, setOpenModal] = useState(false)
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
   const encodedJwt = encodeURIComponent(jwt)
-  const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -76,12 +78,15 @@ const Page = () => {
           {tasks.length > 0 &&
             tasks.map((task) => (
               <Task
+                dias={task.dias}
                 key={task.id}
                 id={task.id}
                 nome={task.nome}
                 hora={task.hora}
                 feito={task.feito}
                 desc={task.desc}
+                openModal={openModal}
+                setOpenModal={() => setOpenModal(!openModal)}
               />
             ))}
         </div>
