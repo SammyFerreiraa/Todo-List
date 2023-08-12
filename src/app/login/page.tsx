@@ -5,7 +5,7 @@ import LoginForm from '@/auth/LoginForm'
 
 const page = async () => {
   return (
-    <div className="flex h-[75%] w-[65%] flex-col items-center justify-center gap-8 rounded-xl bg-neutral-800 text-white">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-8 bg-neutral-800 text-white">
       <div>
         <p className="text-[32px] font-bold">Entre na sua conta!</p>
       </div>
