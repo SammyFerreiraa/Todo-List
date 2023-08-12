@@ -1,6 +1,6 @@
 'use client'
 
-import RegistrationForm from '@/components/auth/registrationForm'
+import RegistrationForm from '@/components/auth/RegistrationForm'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
