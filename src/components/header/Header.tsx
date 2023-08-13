@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import PlusCircle from '../icons/PlusCircle'
 import axios from 'axios'
@@ -9,12 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { parseCookies } from 'nookies'
 
-type PropsJwt = {
-  jwt: string
-}
+const Header = () => {
+  const cookies = parseCookies()
+  const jwt = cookies.jwtToken
 
-const Header = ({ jwt }: PropsJwt) => {
   const [nome, setNome] = useState('')
   const [hora, setHora] = useState('')
   const [dias, setDias] = useState('')
