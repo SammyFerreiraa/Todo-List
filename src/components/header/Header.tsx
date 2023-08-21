@@ -20,6 +20,7 @@ const Header = () => {
   const [nome, setNome] = useState('')
   const [hora, setHora] = useState('')
   const [dias, setDias] = useState('')
+  const [desc, setDesc] = useState('')
 
   useEffect(() => {
     console.log(jwt)
@@ -39,12 +40,14 @@ const Header = () => {
         nome,
         hora,
         dias,
+        desc,
         jwt,
       })
     }
     addTask()
     setNome('')
     setHora('')
+    setDesc('')
     window.location.reload()
   }
   return (
@@ -88,6 +91,14 @@ const Header = () => {
           autoComplete="off"
           value={hora}
           placeholder="Adicione um horario"
+          className="h-12 w-full rounded bg-neutral-800 p-4 text-gray-300"
+        />
+        <input
+          type="text"
+          onChange={(e) => setDesc(e.target.value)}
+          autoComplete="off"
+          value={desc}
+          placeholder="Adicione uma descrição"
           className="h-12 w-full rounded bg-neutral-800 p-4 text-gray-300"
         />
         <button

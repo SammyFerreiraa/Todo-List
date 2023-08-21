@@ -53,6 +53,8 @@ const Task = ({
     window.location.reload()
   }
 
+  const [hours, minutes] = hora.split(':')
+
   return (
     <div className="inline-flex w-full items-start justify-start gap-3 rounded border border-zinc-800 bg-neutral-800 p-5 shadow">
       {!feito && (
@@ -64,7 +66,7 @@ const Task = ({
             {nome}
           </div>
           <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
-            {hora}
+            {hours} : {minutes}
           </div>
           {desc === null && (
             <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
