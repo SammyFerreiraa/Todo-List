@@ -12,7 +12,6 @@ import LengthTasks from './LengthTasks'
 const RenderTasks = () => {
   const [loading, setLoading] = useState(true)
   const [tasks, setTasks] = useState<TaskType[]>([])
-  const [openModal, setOpenModal] = useState(false)
 
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
@@ -55,8 +54,6 @@ const RenderTasks = () => {
               hora={task.hora}
               feito={task.feito}
               desc={task.desc}
-              openModal={openModal}
-              setOpenModal={() => setOpenModal(!openModal)}
             />
           ))}
       </div>

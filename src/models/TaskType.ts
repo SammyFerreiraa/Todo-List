@@ -3,8 +3,8 @@ type TaskType = {
   nome: string
   hora: string
   feito: boolean
-  desc?: string
-  dias?: string
+  desc: string
+  dias: string
 }
 
 export default TaskType
