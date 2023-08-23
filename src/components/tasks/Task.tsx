@@ -90,7 +90,7 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
             {nome}
           </div>
           <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
-            {hora}
+            {hours} : {minutes}
           </div>
           {desc === null && (
             <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
