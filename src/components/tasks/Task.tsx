@@ -50,7 +50,7 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
   return (
     <div className="inline-flex w-full items-start justify-start gap-3 rounded border border-zinc-800 bg-neutral-800 p-5 shadow">
       {!feito && (
-        <div className="inline-flex  w-full items-start justify-start gap-3 rounded border border-zinc-800 bg-neutral-800 p-5 shadow">
+        <div className="flex w-full  flex-col items-center justify-start gap-3 rounded border border-red-800 bg-neutral-800 p-5 shadow">
           <div>
             <Checkbox onClick={completeTask} checked={feito} />
           </div>
@@ -82,7 +82,7 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
         </div>
       )}
       {feito && (
-        <div className="inline-flex  w-full items-start justify-start gap-3 rounded border border-green-600 bg-neutral-800 p-5 shadow">
+        <div className="flex w-full  flex-col items-center justify-start gap-3 rounded border  border-green-600 bg-neutral-800 p-5 shadow">
           <div>
             <Checkbox onClick={completeTask} checked={feito} />
           </div>
