@@ -26,6 +26,7 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
       data: {
         nome,
         jwt,
+        id,
       },
     })
     window.location.reload()
