@@ -1,5 +1,3 @@
-'use client'
-
 import RegistrationForm from '@/auth/RegistrationForm'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'

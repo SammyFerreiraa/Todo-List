@@ -24,13 +24,9 @@ const Header = () => {
   const [desc, setDesc] = useState('')
 
   useEffect(() => {
-    if (jwt === undefined) {
+    if (jwt === undefined || jwt === '' || jwt === null) {
       window.location.href = '/'
     }
-    console.log(jwt)
-    window.addEventListener('beforeunload', () => {
-      destroyCookie(null, 'jwtToken')
-    })
   }, [jwt])
 
   const handleSelectDay = (dia: string) => {

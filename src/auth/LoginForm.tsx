@@ -1,16 +1,24 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Label } from '../components/ui/label'
 import { Input } from '../components/ui/input'
 import axios from 'axios'
-import { setCookie } from 'nookies'
+import { parseCookies, setCookie } from 'nookies'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const [jwt, setJwt] = useState('')
+
+  useEffect(() => {
+    const cookies = parseCookies()
+    if (cookies.jwtToken) {
+      window.alert('Você já está logado!')
+      window.location.href = '/todos'
+    }
+  }, [])
 
   const data = {
     email,

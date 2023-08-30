@@ -3,13 +3,22 @@
 import axios from 'axios'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { parseCookies } from 'nookies'
 
 const RegistrationForm = () => {
   const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [email, setEmail] = useState('')
+
+  useEffect(() => {
+    const cookies = parseCookies()
+    if (cookies.jwtToken) {
+      window.alert('Você já está logado!')
+      window.location.href = '/todos'
+    }
+  }, [])
 
   const data = {
     user,
