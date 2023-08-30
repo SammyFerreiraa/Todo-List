@@ -11,7 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { parseCookies } from 'nookies'
+import { destroyCookie, parseCookies } from 'nookies'
+import Logout from '../icons/Logout'
 
 const Header = () => {
   const cookies = parseCookies()
@@ -23,7 +24,13 @@ const Header = () => {
   const [desc, setDesc] = useState('')
 
   useEffect(() => {
+    if (jwt === undefined) {
+      window.location.href = '/'
+    }
     console.log(jwt)
+    window.addEventListener('beforeunload', () => {
+      destroyCookie(null, 'jwtToken')
+    })
   }, [jwt])
 
   const handleSelectDay = (dia: string) => {
@@ -50,8 +57,20 @@ const Header = () => {
     setDesc('')
     window.location.reload()
   }
+
+  const handleLogout = () => {
+    // Apague o cookie 'token'
+    destroyCookie(null, 'jwtToken')
+
+    // Redirecione para a página de logout ou para onde for apropriado
+    window.location.href = '/login' // Por exemplo, uma página de logout
+  }
+
   return (
     <header className="relative flex w-full items-center justify-center bg-stone-950 py-14">
+      <button onClick={handleLogout} className="absolute right-0 top-0 ">
+        <Logout />
+      </button>
       <div>
         <span className="text-[40px] font-black text-blue-400">to</span>
         <span className="text-[40px] font-black text-indigo-500">do</span>
