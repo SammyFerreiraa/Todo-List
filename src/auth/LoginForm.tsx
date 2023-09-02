@@ -5,6 +5,8 @@ import { Label } from '../components/ui/label'
 import { Input } from '../components/ui/input'
 import axios from 'axios'
 import { parseCookies, setCookie } from 'nookies'
+import Email from '@/components/icons/Email'
+import Password from '@/components/icons/Password'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('')
@@ -57,25 +59,37 @@ const LoginForm = () => {
     <form
       onSubmit={handleSubmit}
       id="login"
-      className="flex flex-col items-center justify-center gap-4"
+      className="flex flex-col items-center justify-center gap-4 text-white"
     >
-      <div>
-        <Label>Email</Label>
+      <div className="flex w-full flex-col gap-3">
+        <Label className="text-base font-normal">Endereço de e-mail</Label>
 
-        <Input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="text-black"
-        />
+        <div className="flex h-14 w-full items-center rounded bg-zinc-800 px-4">
+          <div className=" left-4 top-4">
+            <Email />
+          </div>
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="focus-visible:ring- h-full border-none bg-transparent text-white placeholder:text-[#525258]"
+            placeholder="Digite seu endereço de e-mail"
+          />
+        </div>
       </div>
-      <div>
-        <Label>Senha</Label>
+      <div className="flex w-full flex-col gap-3">
+        <Label className="text-base font-normal">Senha</Label>
 
-        <Input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="text-black"
-        />
+        <div className="flex h-14 w-full items-center rounded bg-zinc-800 px-4">
+          <div className=" left-4 top-4">
+            <Password />
+          </div>
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="focus-visible:ring- h-full border-none bg-transparent text-white placeholder:text-[#525258]"
+            placeholder="Digite sua senha"
+          />
+        </div>
       </div>
     </form>
   )
