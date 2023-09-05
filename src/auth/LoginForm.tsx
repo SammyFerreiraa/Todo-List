@@ -59,7 +59,7 @@ const LoginForm = () => {
     <form
       onSubmit={handleSubmit}
       id="login"
-      className="flex flex-col items-center justify-center gap-4 text-white"
+      className="flex w-full flex-col items-center justify-center gap-4 text-white"
     >
       <div className="flex w-full flex-col gap-3">
         <Label className="text-base font-normal">Endereço de e-mail</Label>
