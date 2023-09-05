@@ -1,5 +1,3 @@
-import { Button } from '../../components/ui/button'
-import Link from 'next/link'
 import LoginForm from '@/auth/LoginForm'
 import Image from 'next/image'
 
@@ -24,22 +22,6 @@ const page = async () => {
       <div className="flex w-full max-w-3xl flex-col gap-7">
         <h1 className="mt-20 text-5xl font-bold text-white">Entrar</h1>
         <LoginForm />
-      </div>
-      <div className="flex w-full  max-w-3xl flex-col gap-3 pt-3">
-        <button
-          form="login"
-          className="flex h-14 w-full items-center justify-center rounded bg-purple-800 px-24 py-7 text-base font-bold text-white hover:bg-purple-900"
-        >
-          Fazer Login
-        </button>
-        <div className="flex w-full flex-col items-center gap-1">
-          <p className="text-sm font-normal text-white">Novo aqui?</p>
-          <Link className="w-full " href={'/registro'}>
-            <Button className="flex h-14 w-full items-center justify-center rounded bg-purple-800 px-24 py-7 text-base font-bold text-white hover:bg-purple-900">
-              Crie sua conta
-            </Button>
-          </Link>
-        </div>
       </div>
     </main>
   )
