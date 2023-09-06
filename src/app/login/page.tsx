@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const page = async () => {
   return (
-    <main className="flex h-screen w-full flex-col items-center bg-zinc-900  p-9 py-12">
+    <main className="flex h-screen w-full flex-col items-center bg-zinc-900 p-9 py-12">
       <a
         href="/"
         className="flex w-full items-center justify-center gap-4 self-center"

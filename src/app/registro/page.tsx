@@ -1,22 +1,28 @@
 import RegistrationForm from '@/auth/RegistrationForm'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import React from 'react'
+import Image from 'next/image'
 
 const Page = async () => {
   return (
-    <main className="flex min-h-screen w-full items-center justify-center bg-zinc-900">
-      <div className="flex h-[75%] w-[65%] flex-col items-center justify-center gap-8 rounded-xl bg-neutral-800 p-8 text-white">
-        <div>
-          <p className="text-[32px] font-bold">Registre-se!</p>
-        </div>
+    <main className="flex h-full w-full flex-col items-center bg-zinc-900 p-9">
+      <a
+        href="/"
+        className="flex w-full items-center justify-center gap-4 self-center"
+      >
+        <Image
+          src={'/imgs/logo.png'}
+          alt="logo"
+          width={82}
+          height={100}
+          sizes="100%"
+        />
+        <h1 className="text-2xl font-extrabold text-purple-800">
+          Mountains To-Do
+        </h1>
+      </a>
+      <div className="flex h-full w-full max-w-3xl flex-col gap-7">
+        <h1 className="mt-8 text-5xl font-bold text-white">Registrar-se</h1>
         <RegistrationForm />
-        <div className="flex flex-row items-center justify-center gap-4">
-          <Button form="register">Registrar</Button>
-          <Link href={'/login'}>
-            <Button>Entrar</Button>
-          </Link>
-        </div>
       </div>
     </main>
   )

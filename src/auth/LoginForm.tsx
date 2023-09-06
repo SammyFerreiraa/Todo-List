@@ -9,6 +9,7 @@ import Email from '@/components/icons/Email'
 import Password from '@/components/icons/Password'
 import { Button } from '../components/ui/button'
 import Link from 'next/link'
+import { Alert, AlertTitle } from '@mui/material'
 const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -123,14 +124,24 @@ const LoginForm = () => {
           />
         </div>
         {erroMessage && (
-          <p className="text-center text-xs text-red-500">
-            E-mail ou senha incorreta
-          </p>
+          <Alert
+            onClose={() => setErrorMessage(false)}
+            className="absolute left-1/3 right-1/3 top-8 items-center justify-center text-gray-200"
+            severity="error"
+            variant="filled"
+          >
+            <AlertTitle>Erro</AlertTitle>Email ou senha incorretos!
+          </Alert>
         )}
         {successMessage && (
-          <p className="text-center text-xs text-green-500">
-            Logado com Sucesso
-          </p>
+          <Alert
+            onClose={() => setSuccessMessage(false)}
+            className="absolute left-1/3 right-1/3 top-8 items-center justify-center  text-gray-200"
+            severity="success"
+            variant="filled"
+          >
+            <AlertTitle>Parabéns</AlertTitle>Você foi logado com sucesso!
+          </Alert>
         )}
       </div>
       <div className="flex w-full  max-w-3xl flex-col gap-3 pt-3">
