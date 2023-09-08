@@ -39,8 +39,11 @@ const RenderTasks = () => {
   return (
     <section className="mt-24 h-full w-full px-64">
       <div className="flex items-center justify-between">
-        <LengthTasks Tasks={tasks} />
-        <CompletedTasks Tasks={tasks} />
+        <LengthTasks TasksLength={tasks.length || null} />
+        <CompletedTasks
+          TasksLength={tasks.length || null}
+          TasksComplete={tasks.filter((task) => task.feito).length}
+        />
       </div>
       <div className="flex flex-col items-center justify-center gap-2 py-10 text-white">
         {loading && <CircularProgress size={40} />}
