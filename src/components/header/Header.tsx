@@ -73,7 +73,7 @@ const Header = () => {
       </div>
       <form
         onSubmit={handleOnRegister}
-        className="absolute -bottom-6 flex max-h-14 w-3/4 gap-2"
+        className="absolute -bottom-6 flex max-h-14 w-3/4 items-center gap-2"
       >
         <Select value={dias} onValueChange={handleSelectDay}>
           <SelectTrigger className="w-[1000px]">
