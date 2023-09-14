@@ -3,7 +3,7 @@ import RenderTasks from '@/components/tasks/RenderTasks'
 
 const Page = async () => {
   return (
-    <main className="min-h-screen w-full bg-neutral-950">
+    <main className="flex min-h-screen w-full flex-col bg-neutral-950">
       <Header />
       <RenderTasks />
     </main>

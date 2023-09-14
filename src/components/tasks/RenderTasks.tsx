@@ -9,10 +9,12 @@ import { parseCookies } from 'nookies'
 import CompletedTasks from './CompletedTasks'
 import LengthTasks from './LengthTasks'
 import { ClockLoader } from 'react-spinners'
+import { AlertTriangle } from 'lucide-react'
 
 const RenderTasks = () => {
   const [loading, setLoading] = useState(true)
   const [tasks, setTasks] = useState<TaskType[]>([])
+  const [TasksLength, setTasksLength] = useState<number | null>(null)
 
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
@@ -29,6 +31,7 @@ const RenderTasks = () => {
         setTasks(data)
         setLoading(false)
         console.log(TasksData)
+        setTasksLength(data.length)
       } catch (error) {
         console.error(error)
       }
@@ -38,7 +41,7 @@ const RenderTasks = () => {
   }, [])
 
   return (
-    <section className="h-full w-full flex-1 px-12 py-8">
+    <section className="flex min-h-full w-full flex-1 flex-col px-12 py-8">
       {loading && (
         <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
           <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
@@ -51,7 +54,15 @@ const RenderTasks = () => {
           TasksComplete={tasks.filter((task) => task.feito).length}
         />
       </div>
-      <div className="flex flex-col items-center justify-center gap-2 py-10 text-white">
+      <div className="flex min-h-full flex-1 flex-col items-center justify-center gap-2 py-10 text-white">
+        {TasksLength !== null && TasksLength === 0 && (
+          <div className="flex flex-row items-center justify-center gap-4 ">
+            <AlertTriangle size={30} className="text-[#6b21a8]" />
+            <p className="text-xl font-bold text-purple-800">
+              Não há tarefas, adicione-as!
+            </p>
+          </div>
+        )}
         <div className="grid h-full w-full grid-rows-1 gap-8">
           {tasks.filter(
             (task) => task.dias === 'Segunda' || task.dias === 'Todos',
