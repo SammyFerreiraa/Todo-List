@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import PlusCircle from '../icons/PlusCircle'
 import axios from 'axios'
 import {
   Select,
@@ -13,10 +12,17 @@ import {
 } from '@/components/ui/select'
 import { destroyCookie, parseCookies } from 'nookies'
 import Logout from '../icons/Logout'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import Image from 'next/image'
+import { LogOut, PlusCircle } from 'lucide-react'
+import NewTask from './NewTask'
 
 const Header = () => {
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
+
+  const [openModal, setOpenModal] = useState(false)
 
   const [nome, setNome] = useState('')
   const [hora, setHora] = useState('')
@@ -63,15 +69,38 @@ const Header = () => {
   }
 
   return (
-    <header className="relative flex w-full items-center justify-center bg-stone-950 py-14">
-      <button onClick={handleLogout} className="absolute right-0 top-0 ">
+    <header className="relative flex w-full items-center justify-between bg-stone-950 px-8 shadow-lg">
+      <div className="flex flex-row items-center justify-center gap-4 ">
+        <Image
+          src={'/imgs/logo.png'}
+          alt="logo"
+          width={80}
+          height={100}
+          sizes="100%"
+        />
+        <p className="text-xl font-bold text-purple-800">Mountain To-Do</p>
+      </div>
+      <div className="flex flex-row items-center justify-center gap-4">
+        <Button onClick={handleLogout}>
+          <LogOut className="mr-2 h-4 w-4" />
+          Logout
+        </Button>
+        <Button onClick={() => setOpenModal(!openModal)}>
+          <PlusCircle className="mr-2 h-4 w-4" />
+          Adicionar Tarefa
+        </Button>
+      </div>
+
+      <NewTask jwt={jwt} setOpenModal={setOpenModal} openModal={openModal} />
+
+      {/* <button onClick={handleLogout} className="absolute right-0 top-0 ">
         <Logout />
       </button>
       <div>
         <span className="text-[40px] font-black text-blue-400">to</span>
         <span className="text-[40px] font-black text-indigo-500">do</span>
-      </div>
-      <form
+      </div> */}
+      {/* <form
         onSubmit={handleOnRegister}
         className="absolute -bottom-6 flex max-h-14 w-3/4 items-center gap-2"
       >
@@ -92,38 +121,38 @@ const Header = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <input
+        <Input
           type="text"
           autoComplete="off"
           onChange={(e) => setNome(e.target.value)}
           value={nome}
           placeholder="Adicione uma nova tarefa"
-          className="h-12 w-full rounded bg-neutral-800 p-4 text-gray-300"
+          className="h-12 w-full p-4 text-gray-300"
         />
-        <input
+        <Input
           type="time"
           onChange={(e) => setHora(e.target.value)}
           autoComplete="off"
           value={hora}
           placeholder="Adicione um horario"
-          className="h-12 w-full rounded bg-neutral-800 p-4 text-gray-300"
+          className="h-12 w-full  p-4 text-gray-300"
         />
-        <input
+        <Input
           type="text"
           onChange={(e) => setDesc(e.target.value)}
           autoComplete="off"
           value={desc}
           placeholder="Adicione uma descrição"
-          className="h-12 w-full rounded bg-neutral-800 p-4 text-gray-300"
+          className="h-12 w-full p-4 text-gray-300"
         />
-        <button
+        <Button
           type="submit"
-          className="flex h-12 w-24 items-center justify-center gap-2 rounded bg-cyan-700 text-white"
+          className="flex h-12 w-24 items-center justify-center gap-2"
         >
           <PlusCircle />
           Criar
-        </button>
-      </form>
+        </Button>
+      </form> */}
     </header>
   )
 }

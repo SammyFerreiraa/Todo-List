@@ -37,7 +37,7 @@ const RenderTasks = () => {
   }, [])
 
   return (
-    <section className="mt-24 h-full w-full px-64">
+    <section className="h-full w-full flex-1 px-64 py-8">
       <div className="flex items-center justify-between">
         <LengthTasks TasksLength={tasks.length || null} />
         <CompletedTasks
