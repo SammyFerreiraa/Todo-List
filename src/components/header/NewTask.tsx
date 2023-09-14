@@ -29,10 +29,6 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
   const [dias, setDias] = useState('')
   const [desc, setDesc] = useState('')
 
-  const handleSelectDay = (dia: string) => {
-    setDias(dia)
-  }
-
   const handleChange = (event: SelectChangeEvent) => {
     setDias(event.target.value as string)
   }

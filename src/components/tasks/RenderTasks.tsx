@@ -8,6 +8,7 @@ import axios from 'axios'
 import { parseCookies } from 'nookies'
 import CompletedTasks from './CompletedTasks'
 import LengthTasks from './LengthTasks'
+import { ClockLoader } from 'react-spinners'
 
 const RenderTasks = () => {
   const [loading, setLoading] = useState(true)
@@ -37,7 +38,12 @@ const RenderTasks = () => {
   }, [])
 
   return (
-    <section className="h-full w-full flex-1 px-64 py-8">
+    <section className="h-full w-full flex-1 px-12 py-8">
+      {loading && (
+        <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
+          <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <LengthTasks TasksLength={tasks.length || null} />
         <CompletedTasks
@@ -46,97 +52,183 @@ const RenderTasks = () => {
         />
       </div>
       <div className="flex flex-col items-center justify-center gap-2 py-10 text-white">
-        {loading && <CircularProgress size={40} />}
-        {!loading && tasks.length === 0 && <p>Adicione uma tarefa!</p>}
-        <div className="grid h-full w-full grid-cols-4 gap-8">
-          <div>
-            <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-              Segunda-feira
-            </h1>
-            {tasks
-              .filter(
-                (task) => task.dias === 'Segunda' || task.dias === 'Todos',
-              )
-              .map((task) => (
-                <Task
-                  dias={task.dias}
-                  key={task.id}
-                  id={task.id}
-                  nome={task.nome}
-                  hora={task.hora}
-                  feito={task.feito}
-                  desc={task.desc}
-                />
-              ))}
-          </div>
-          <div>
-            <h1 className="flex  flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-              Terça-feira
-            </h1>
-            {tasks
-              .filter((task) => task.dias === 'Terca' || task.dias === 'Todos')
-              .map((task) => (
-                <Task
-                  dias={task.dias}
-                  key={task.id}
-                  id={task.id}
-                  nome={task.nome}
-                  hora={task.hora}
-                  feito={task.feito}
-                  desc={task.desc}
-                />
-              ))}
-          </div>
-          <div>
-            <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-              Quarta-feira
-            </h1>
-            {tasks
-              .filter((task) => task.dias === 'Quarta' || task.dias === 'Todos')
-              .map((task) => (
-                <Task
-                  dias={task.dias}
-                  key={task.id}
-                  id={task.id}
-                  nome={task.nome}
-                  hora={task.hora}
-                  feito={task.feito}
-                  desc={task.desc}
-                />
-              ))}
-          </div>
-          <div>
-            <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-              Quinta-feira
-            </h1>
-            {tasks
-              .filter((task) => task.dias === 'Quinta' || task.dias === 'Todos')
-              .map((task) => (
-                <Task
-                  dias={task.dias}
-                  key={task.id}
-                  id={task.id}
-                  nome={task.nome}
-                  hora={task.hora}
-                  feito={task.feito}
-                  desc={task.desc}
-                />
-              ))}
-          </div>
-        </div>
+        <div className="grid h-full w-full grid-rows-1 gap-8">
+          {tasks.filter(
+            (task) => task.dias === 'Segunda' || task.dias === 'Todos',
+          ).length > 0 && (
+            <div>
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
+                Segunda-feira
+              </h1>
 
-        {/* {tasks.length > 0 &&
-          tasks.map((task) => (
-            <Task
-              dias={task.dias}
-              key={task.id}
-              id={task.id}
-              nome={task.nome}
-              hora={task.hora}
-              feito={task.feito}
-              desc={task.desc}
-            />
-          ))} */}
+              {tasks
+                .filter(
+                  (task) => task.dias === 'Segunda' || task.dias === 'Todos',
+                )
+                .map((task) => (
+                  <Task
+                    dias={task.dias}
+                    key={task.id}
+                    id={task.id}
+                    nome={task.nome}
+                    hora={task.hora}
+                    feito={task.feito}
+                    desc={task.desc}
+                  />
+                ))}
+            </div>
+          )}
+
+          {tasks.filter(
+            (task) => task.dias === 'Terca' || task.dias === 'Todos',
+          ).length > 0 && (
+            <div>
+              <h1 className="flex  flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
+                Terça-feira
+              </h1>
+              {tasks
+                .filter(
+                  (task) => task.dias === 'Terca' || task.dias === 'Todos',
+                )
+                .map((task) => (
+                  <Task
+                    dias={task.dias}
+                    key={task.id}
+                    id={task.id}
+                    nome={task.nome}
+                    hora={task.hora}
+                    feito={task.feito}
+                    desc={task.desc}
+                  />
+                ))}
+            </div>
+          )}
+
+          {tasks.filter(
+            (task) => task.dias === 'Quarta' || task.dias === 'Todos',
+          ).length > 0 && (
+            <div>
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
+                Quarta-feira
+              </h1>
+              {tasks
+                .filter(
+                  (task) => task.dias === 'Quarta' || task.dias === 'Todos',
+                )
+                .map((task) => (
+                  <Task
+                    dias={task.dias}
+                    key={task.id}
+                    id={task.id}
+                    nome={task.nome}
+                    hora={task.hora}
+                    feito={task.feito}
+                    desc={task.desc}
+                  />
+                ))}
+            </div>
+          )}
+
+          {tasks.filter(
+            (task) => task.dias === 'Quinta' || task.dias === 'Todos',
+          ).length > 0 && (
+            <div>
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
+                Quinta-feira
+              </h1>
+              {tasks
+                .filter(
+                  (task) => task.dias === 'Quinta' || task.dias === 'Todos',
+                )
+                .map((task) => (
+                  <Task
+                    dias={task.dias}
+                    key={task.id}
+                    id={task.id}
+                    nome={task.nome}
+                    hora={task.hora}
+                    feito={task.feito}
+                    desc={task.desc}
+                  />
+                ))}
+            </div>
+          )}
+
+          {tasks.filter(
+            (task) => task.dias === 'Sexta' || task.dias === 'Todos',
+          ).length > 0 && (
+            <div>
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
+                Sexta-feira
+              </h1>
+              {tasks
+                .filter(
+                  (task) => task.dias === 'Sexta' || task.dias === 'Todos',
+                )
+                .map((task) => (
+                  <Task
+                    dias={task.dias}
+                    key={task.id}
+                    id={task.id}
+                    nome={task.nome}
+                    hora={task.hora}
+                    feito={task.feito}
+                    desc={task.desc}
+                  />
+                ))}
+            </div>
+          )}
+
+          {tasks.filter(
+            (task) => task.dias === 'Sabado' || task.dias === 'Todos',
+          ).length > 0 && (
+            <div>
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
+                Sabado
+              </h1>
+              {tasks
+                .filter(
+                  (task) => task.dias === 'Sabado' || task.dias === 'Todos',
+                )
+                .map((task) => (
+                  <Task
+                    dias={task.dias}
+                    key={task.id}
+                    id={task.id}
+                    nome={task.nome}
+                    hora={task.hora}
+                    feito={task.feito}
+                    desc={task.desc}
+                  />
+                ))}
+            </div>
+          )}
+
+          {tasks.filter(
+            (task) => task.dias === 'Domingo' || task.dias === 'Todos',
+          ).length > 0 && (
+            <div>
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
+                Domingo
+              </h1>
+              {tasks
+                .filter(
+                  (task) => task.dias === 'Domingo' || task.dias === 'Todos',
+                )
+                .map((task) => (
+                  <Task
+                    dias={task.dias}
+                    key={task.id}
+                    id={task.id}
+                    nome={task.nome}
+                    hora={task.hora}
+                    feito={task.feito}
+                    desc={task.desc}
+                  />
+                ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   )
