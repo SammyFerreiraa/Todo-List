@@ -1,7 +1,6 @@
 'use client'
 
 import TaskType from '@/models/TaskType'
-import { CircularProgress } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Task from './Task'
 import axios from 'axios'
@@ -10,6 +9,7 @@ import CompletedTasks from './CompletedTasks'
 import LengthTasks from './LengthTasks'
 import { ClockLoader } from 'react-spinners'
 import { AlertTriangle } from 'lucide-react'
+import { Separator } from '../ui/separator'
 
 const RenderTasks = () => {
   const [loading, setLoading] = useState(true)
@@ -68,8 +68,8 @@ const RenderTasks = () => {
             (task) => task.dias === 'Segunda' || task.dias === 'Todos',
           ).length > 0 && (
             <div>
-              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-                Segunda-feira
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
+                SEGUNDA-FEIRA
               </h1>
 
               {tasks
@@ -87,6 +87,7 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
+              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -94,8 +95,8 @@ const RenderTasks = () => {
             (task) => task.dias === 'Terca' || task.dias === 'Todos',
           ).length > 0 && (
             <div>
-              <h1 className="flex  flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-                Terça-feira
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
+                TERÇA-FEIRA
               </h1>
               {tasks
                 .filter(
@@ -112,6 +113,7 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
+              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -119,8 +121,8 @@ const RenderTasks = () => {
             (task) => task.dias === 'Quarta' || task.dias === 'Todos',
           ).length > 0 && (
             <div>
-              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-                Quarta-feira
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
+                QUARTA-FEIRA
               </h1>
               {tasks
                 .filter(
@@ -137,6 +139,7 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
+              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -144,8 +147,8 @@ const RenderTasks = () => {
             (task) => task.dias === 'Quinta' || task.dias === 'Todos',
           ).length > 0 && (
             <div>
-              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-                Quinta-feira
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
+                QUINTA-FEIRA
               </h1>
               {tasks
                 .filter(
@@ -162,6 +165,7 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
+              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -169,8 +173,8 @@ const RenderTasks = () => {
             (task) => task.dias === 'Sexta' || task.dias === 'Todos',
           ).length > 0 && (
             <div>
-              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-                Sexta-feira
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
+                SEXTA-FEIRA
               </h1>
               {tasks
                 .filter(
@@ -187,6 +191,7 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
+              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -194,8 +199,8 @@ const RenderTasks = () => {
             (task) => task.dias === 'Sabado' || task.dias === 'Todos',
           ).length > 0 && (
             <div>
-              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-                Sabado
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
+                SÁBADO
               </h1>
               {tasks
                 .filter(
@@ -212,6 +217,7 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
+              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -219,8 +225,8 @@ const RenderTasks = () => {
             (task) => task.dias === 'Domingo' || task.dias === 'Todos',
           ).length > 0 && (
             <div>
-              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md bg-slate-800">
-                Domingo
+              <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
+                DOMINGO
               </h1>
               {tasks
                 .filter(
@@ -237,6 +243,7 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
+              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
         </div>

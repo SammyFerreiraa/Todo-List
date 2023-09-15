@@ -5,6 +5,7 @@ import axios from 'axios'
 import { parseCookies } from 'nookies'
 import Edit from '../icons/Edit'
 import EditTasks from './EditTasks'
+import { Clock, ScrollText } from 'lucide-react'
 
 type TaksProps = {
   nome: string
@@ -49,26 +50,27 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
   const [hours, minutes] = hora.split(':')
 
   return (
-    <div className="inline-flex w-full items-start justify-start gap-3 rounded border border-zinc-800 bg-neutral-800 p-5 shadow">
+    <div className="inline-flex w-full items-start justify-start gap-3 rounded p-1 shadow">
       {!feito && (
-        <div className="flex w-full  flex-col items-center justify-start gap-3 rounded border border-red-800 bg-neutral-800 p-5 shadow">
+        <div className="flex w-full flex-row items-center justify-start gap-3 rounded bg-neutral-900 p-5 shadow">
           <div>
-            <Checkbox onClick={completeTask} checked={feito} />
+            <Checkbox
+              className="h-4 w-4"
+              onClick={completeTask}
+              checked={feito}
+            />
           </div>
           <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
             {nome}
           </div>
-          <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
+          <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
+            <Clock className="h-4 w-4" />
             {hours} : {minutes}
           </div>
-          {desc === null ||
-            (desc === '' && (
-              <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
-                Sem descrição!
-              </div>
-            ))}
+
           {desc !== null && (
-            <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
+            <div className="flex shrink grow basis-0 gap-2 text-sm font-normal leading-tight text-zinc-100">
+              {desc !== '' && <ScrollText className="h-4 w-4" />}
               {desc}
             </div>
           )}
@@ -83,23 +85,20 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
         </div>
       )}
       {feito && (
-        <div className="flex w-full  flex-col items-center justify-start gap-3 rounded border  border-green-600 bg-neutral-800 p-5 shadow">
+        <div className="flex w-full flex-row items-center justify-start gap-3 rounded bg-neutral-900 p-5 shadow">
           <div>
             <Checkbox onClick={completeTask} checked={feito} />
           </div>
           <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100 line-through">
             {nome}
           </div>
-          <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
+          <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
+            <Clock className="h-4 w-4" />
             {hours} : {minutes}
           </div>
-          {desc === null && (
-            <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
-              Sem descrição!
-            </div>
-          )}
           {desc !== null && (
-            <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
+            <div className="flex shrink grow basis-0 gap-2 text-sm font-normal leading-tight text-zinc-100">
+              {desc !== '' && <ScrollText className="h-4 w-4" />}
               {desc}
             </div>
           )}
