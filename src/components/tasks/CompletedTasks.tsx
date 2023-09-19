@@ -1,6 +1,5 @@
 import { CircularProgress } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { Separator } from '../ui/separator'
 
 const CompletedTasks = ({
   TasksLength,
