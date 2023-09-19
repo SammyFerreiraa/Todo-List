@@ -51,7 +51,8 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
     setNome('')
     setHora('')
     setDesc('')
-    window.location.reload()
+
+    setOpenModal(false)
   }
   return (
     <Modal
@@ -164,7 +165,7 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
             </div>
             <Button
               type="submit"
-              className="flex h-12 w-24 items-center justify-center gap-2"
+              className="flex h-12 min-w-full items-center justify-center gap-2"
             >
               <PlusCircle />
               Criar

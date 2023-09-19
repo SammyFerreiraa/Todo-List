@@ -15,6 +15,9 @@ const RenderTasks = () => {
   const [loading, setLoading] = useState(true)
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [TasksLength, setTasksLength] = useState<number | null>(null)
+  const [completedTasks, setCompletedTasks] = useState<number>(
+    tasks.filter((task) => task.feito).length,
+  )
 
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
@@ -32,6 +35,7 @@ const RenderTasks = () => {
         setLoading(false)
         console.log(TasksData)
         setTasksLength(data.length)
+        setCompletedTasks(data.filter((task) => task.feito).length)
       } catch (error) {
         console.error(error)
       }
@@ -39,6 +43,23 @@ const RenderTasks = () => {
     fetchTasks()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:6969/tasks/${encodedJwt}`,
+      )
+      const TasksData: TaskType[] = response.data
+      const data = TasksData.sort((a, b) => a.hora.localeCompare(b.hora))
+      setTasks(data)
+      setLoading(false)
+      console.log(TasksData)
+      setTasksLength(data.length)
+      setCompletedTasks(data.filter((task) => task.feito).length)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <section className="flex min-h-full w-full flex-1 flex-col px-12 py-8">
@@ -51,7 +72,7 @@ const RenderTasks = () => {
         <LengthTasks TasksLength={tasks.length || null} />
         <CompletedTasks
           TasksLength={tasks.length || null}
-          TasksComplete={tasks.filter((task) => task.feito).length}
+          TasksComplete={completedTasks}
         />
       </div>
       <div className="flex min-h-full flex-1 flex-col items-center justify-center gap-2 py-10 text-white">
@@ -78,6 +99,7 @@ const RenderTasks = () => {
                 )
                 .map((task) => (
                   <Task
+                    recharge={fetchTasks}
                     dias={task.dias}
                     key={task.id}
                     id={task.id}
@@ -104,6 +126,7 @@ const RenderTasks = () => {
                 )
                 .map((task) => (
                   <Task
+                    recharge={fetchTasks}
                     dias={task.dias}
                     key={task.id}
                     id={task.id}
@@ -130,6 +153,7 @@ const RenderTasks = () => {
                 )
                 .map((task) => (
                   <Task
+                    recharge={fetchTasks}
                     dias={task.dias}
                     key={task.id}
                     id={task.id}
@@ -156,6 +180,7 @@ const RenderTasks = () => {
                 )
                 .map((task) => (
                   <Task
+                    recharge={fetchTasks}
                     dias={task.dias}
                     key={task.id}
                     id={task.id}
@@ -182,6 +207,7 @@ const RenderTasks = () => {
                 )
                 .map((task) => (
                   <Task
+                    recharge={fetchTasks}
                     dias={task.dias}
                     key={task.id}
                     id={task.id}
@@ -208,6 +234,7 @@ const RenderTasks = () => {
                 )
                 .map((task) => (
                   <Task
+                    recharge={fetchTasks}
                     dias={task.dias}
                     key={task.id}
                     id={task.id}
@@ -234,6 +261,7 @@ const RenderTasks = () => {
                 )
                 .map((task) => (
                   <Task
+                    recharge={fetchTasks}
                     dias={task.dias}
                     key={task.id}
                     id={task.id}

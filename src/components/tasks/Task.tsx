@@ -14,9 +14,10 @@ type TaksProps = {
   feito: boolean
   desc: string
   dias: string
+  recharge: () => void
 }
 
-const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
+const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
 
@@ -31,7 +32,7 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
         id,
       },
     })
-    window.location.reload()
+    recharge()
   }
 
   const completeTask = async () => {
@@ -51,6 +52,7 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
       dias,
       desc,
     })
+    recharge()
   }
 
   const [hours, minutes] = hora.split(':')
