@@ -2,70 +2,43 @@
 
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { destroyCookie, parseCookies } from 'nookies'
-import Logout from '../icons/Logout'
-import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import Image from 'next/image'
-import { LogOut, PlusCircle } from 'lucide-react'
+import { LogOut, PlusCircle, User } from 'lucide-react'
 import NewTask from './NewTask'
 
 const Header = () => {
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
+  const encodedJwt = encodeURIComponent(jwt)
 
   const [openModal, setOpenModal] = useState(false)
 
-  const [nome, setNome] = useState('')
-  const [hora, setHora] = useState('')
-  const [dias, setDias] = useState('')
-  const [desc, setDesc] = useState('')
+  const [userName, setUserName] = useState('')
 
   useEffect(() => {
     if (jwt === undefined || jwt === '' || jwt === null) {
       window.location.href = '/'
     }
+
+    const fetchUserName = async () => {
+      const responde = await axios.get(
+        `http://localhost:6969/auth/getUser/${encodedJwt}`,
+      )
+      console.log(responde.data)
+      const data = responde.data
+      setUserName(data.User)
+    }
+
+    fetchUserName()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jwt])
 
-  const handleSelectDay = (dia: string) => {
-    setDias(dia)
-  }
-
-  const handleOnRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    if (nome === '' || hora === '') return
-
-    const addTask = async () => {
-      await axios.post('http://localhost:6969/insert', {
-        nome,
-        hora,
-        dias,
-        desc,
-        jwt,
-      })
-    }
-    addTask()
-    setNome('')
-    setHora('')
-    setDesc('')
-    window.location.reload()
-  }
-
   const handleLogout = () => {
-    // Apague o cookie 'token'
     destroyCookie(null, 'jwtToken')
 
-    // Redirecione para a página de logout ou para onde for apropriado
-    window.location.href = '/login' // Por exemplo, uma página de logout
+    window.location.href = '/login'
   }
 
   return (
@@ -81,6 +54,10 @@ const Header = () => {
         <p className="text-xl font-bold text-purple-800">Mountain To-Do</p>
       </div>
       <div className="flex flex-row items-center justify-center gap-4">
+        <div className="mr-2 flex items-center gap-2">
+          <User className="h-4 w-4" />
+          <p className="text-sm font-semibold text-white">{userName}</p>
+        </div>
         <Button onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
           Logout
