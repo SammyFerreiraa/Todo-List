@@ -1,9 +1,5 @@
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
 import React, { useState } from 'react'
-import MenuItem from '@mui/material/MenuItem'
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
-import { PlusCircle, X } from 'lucide-react'
+import { PlusCircle } from 'lucide-react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 // import {
@@ -22,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
+import ClockLoader from 'react-spinners/ClockLoader'
 
 type newTaskType = {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -35,6 +32,8 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
   const [dias, setDias] = useState('')
   const [desc, setDesc] = useState('')
 
+  const [added, setAdded] = useState(false)
+
   const handleChange = (newDia: string) => {
     setDias(newDia)
   }
@@ -45,7 +44,7 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
     if (nome === '' || hora === '') return
 
     const addTask = async () => {
-      await axios.post('http://localhost:6969/insert', {
+      await axios.post('https://to-do-mountains.onrender.com/insert', {
         nome,
         hora,
         dias,
@@ -54,16 +53,23 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
       })
     }
     addTask()
-    setNome('')
-    setHora('')
-    setDesc('')
-    setDias('')
-    setOpenModal(false)
-    window.location.reload()
+    setAdded(true)
+    setTimeout(() => {
+      setNome('')
+      setHora('')
+      setDesc('')
+      setDias('')
+      window.location.reload()
+    }, 2000)
   }
   return (
     <div className="fixed inset-0 z-10 bg-black bg-opacity-50 text-gray-200">
       <div className="flex h-full w-full items-center justify-center">
+        {added && (
+          <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
+            <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
+          </div>
+        )}
         <div className="absolute flex h-2/4 w-2/4 flex-col items-center justify-center overflow-hidden rounded-xl bg-neutral-900 shadow-2xl">
           <Button
             className="absolute right-4 top-4 bg-transparent text-white hover:text-black"

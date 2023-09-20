@@ -27,7 +27,7 @@ const RenderTasks = () => {
     const fetchTasks = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:6969/tasks/${encodedJwt}`,
+          `https://to-do-mountains.onrender.com/tasks/${encodedJwt}`,
         )
         const TasksData: TaskType[] = response.data
         const data = TasksData.sort((a, b) => a.hora.localeCompare(b.hora))
@@ -47,7 +47,7 @@ const RenderTasks = () => {
   const fetchTasks = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:6969/tasks/${encodedJwt}`,
+        `https://to-do-mountains.onrender.com/tasks/${encodedJwt}`,
       )
       const TasksData: TaskType[] = response.data
       const data = TasksData.sort((a, b) => a.hora.localeCompare(b.hora))

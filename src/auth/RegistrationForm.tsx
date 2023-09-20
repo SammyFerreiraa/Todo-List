@@ -102,7 +102,7 @@ const RegistrationForm = () => {
   const register = async () => {
     try {
       const response = await axios.post(
-        'http://localhost:6969/auth/register',
+        'https://to-do-mountains.onrender.com/auth/register',
         data,
       )
 

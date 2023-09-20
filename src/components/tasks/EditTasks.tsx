@@ -51,7 +51,7 @@ const EditTasks = ({
   }, [])
 
   const editTask = async () => {
-    await axios.put('http://localhost:6969/update', {
+    await axios.put('https://to-do-mountains.onrender.com/update', {
       nome: newName,
       hora: newHora,
       jwt,

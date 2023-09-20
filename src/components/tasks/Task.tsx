@@ -25,7 +25,7 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
   const [openModal, setOpenModal] = useState(false)
 
   const deleteTask = async () => {
-    await axios.delete('http://localhost:6969/delete', {
+    await axios.delete('https://to-do-mountains.onrender.com/delete', {
       data: {
         nome,
         jwt,
@@ -43,7 +43,7 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
     setFeitoP(newFeito)
     console.log('3')
 
-    await axios.put('http://localhost:6969/update', {
+    await axios.put('https://to-do-mountains.onrender.com/update', {
       nome,
       hora,
       jwt,
@@ -79,7 +79,7 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
         </div>
 
         {desc !== null && (
-          <div className="flex shrink grow basis-0 gap-2 text-sm font-normal leading-tight text-zinc-100">
+          <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
             {desc !== '' && <ScrollText className="h-4 w-4" />}
             {desc}
           </div>

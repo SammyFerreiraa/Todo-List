@@ -40,10 +40,13 @@ const LoginForm = () => {
 
   const login = async () => {
     try {
-      const response = await axios.post('http://localhost:6969/auth/login', {
-        email,
-        password,
-      })
+      const response = await axios.post(
+        'https://to-do-mountains.onrender.com/auth/login',
+        {
+          email,
+          password,
+        },
+      )
 
       if (response.status === 200) {
         const jwtToken = response.data

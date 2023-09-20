@@ -24,7 +24,7 @@ const Header = () => {
 
     const fetchUserName = async () => {
       const responde = await axios.get(
-        `http://localhost:6969/auth/getUser/${encodedJwt}`,
+        `https://to-do-mountains.onrender.com/auth/getUser/${encodedJwt}`,
       )
       console.log(responde.data)
       const data = responde.data
