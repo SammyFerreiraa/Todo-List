@@ -191,6 +191,7 @@ const RegistrationForm = () => {
             <UserIcon />
           </div>
           <Input
+            autoComplete="off"
             value={user}
             onChange={handleInputChangeUsername}
             className={`focus-visible:ring- h-full  border-none  bg-transparent text-white
@@ -222,6 +223,7 @@ const RegistrationForm = () => {
           </div>
           <Input
             value={email}
+            autoComplete="off"
             onChange={handleInputChangeEmail}
             className={`focus-visible:ring- h-full  border-none  bg-transparent text-white
             placeholder:text-[#525258]`}
@@ -252,6 +254,7 @@ const RegistrationForm = () => {
             <Password />
           </div>
           <Input
+            autoComplete="off"
             type="password"
             value={password}
             onChange={handleInputChangePassword}
@@ -281,6 +284,7 @@ const RegistrationForm = () => {
             <Password />
           </div>
           <Input
+            autoComplete="off"
             type="password"
             value={confirmPassword}
             onChange={handleInputChangeConfirmPassword}

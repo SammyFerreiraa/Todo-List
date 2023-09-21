@@ -105,6 +105,7 @@ const LoginForm = () => {
           <Input
             value={email}
             onChange={handleInputChange}
+            autoComplete="off"
             className={`focus-visible:ring- h-full  border-none  bg-transparent text-white
             placeholder:text-[#525258]`}
             placeholder="Digite seu endereço de e-mail"
@@ -122,6 +123,7 @@ const LoginForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="focus-visible:ring- h-full border-none bg-transparent text-white placeholder:text-[#525258]"
+            autoComplete="off"
             type="password"
             placeholder="Digite sua senha"
           />
