@@ -42,7 +42,7 @@ const Header = () => {
   }
 
   return (
-    <header className="relative flex w-full items-center justify-between bg-stone-950 px-8 shadow-lg">
+    <header className="relative flex h-fit w-full items-center justify-between bg-stone-950 px-8 shadow-lg">
       <div className="flex flex-row items-center justify-center gap-4 ">
         <Image
           src={'/imgs/logo.png'}

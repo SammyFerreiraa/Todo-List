@@ -62,7 +62,7 @@ const RenderTasks = () => {
   }
 
   return (
-    <section className="flex min-h-full w-full flex-1 flex-col px-12 py-8">
+    <section className="flex w-full flex-1 flex-col bg-neutral-950 px-12 py-8">
       {loading && (
         <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
           <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
@@ -84,7 +84,7 @@ const RenderTasks = () => {
             </p>
           </div>
         )}
-        <div className="grid h-full w-full grid-rows-1 gap-8">
+        <div className="grid h-full w-full grid-rows-1 gap-6">
           {tasks.filter(
             (task) => task.dias === 'Segunda' || task.dias === 'Todos',
           ).length > 0 && (
