@@ -108,6 +108,9 @@ const RegistrationForm = () => {
 
       if (response.status === 200) {
         setSuccessMessage(true)
+        setTimeout(() => {
+          window.location.href = '/login'
+        }, 1000)
       } else {
         console.log('Erro na solicitação:', response.status, response.data)
       }
