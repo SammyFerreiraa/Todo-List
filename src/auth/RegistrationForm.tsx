@@ -145,7 +145,7 @@ const RegistrationForm = () => {
     <form
       onSubmit={handleSubmit}
       id="register"
-      className="flex h-screen w-full flex-col items-center justify-start gap-4 text-white  "
+      className="flex h-full w-full flex-col items-center justify-start gap-2 text-white  "
     >
       {successMessage && (
         <Alert

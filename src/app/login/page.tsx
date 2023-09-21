@@ -3,10 +3,10 @@ import Image from 'next/image'
 
 const page = async () => {
   return (
-    <main className="flex h-screen w-full flex-col items-center bg-zinc-900 p-9 py-12">
+    <main className="flex w-full flex-1 flex-col items-center justify-center bg-zinc-900 p-4">
       <a
         href="/"
-        className="flex w-full items-center justify-center gap-4 self-center"
+        className="flex w-fit items-center justify-center gap-4 self-center"
       >
         <Image
           src={'/imgs/logo.png'}
@@ -19,8 +19,8 @@ const page = async () => {
           Mountains To-Do
         </h1>
       </a>
-      <div className="flex w-full max-w-3xl flex-col gap-7">
-        <h1 className="mt-20 text-5xl font-bold text-white">Entrar</h1>
+      <div className="flex w-full max-w-3xl flex-col items-start justify-center gap-7">
+        <h1 className=" text-5xl font-bold text-white">Entrar</h1>
         <LoginForm />
       </div>
     </main>

@@ -82,7 +82,7 @@ const LoginForm = () => {
     <form
       onSubmit={handleSubmit}
       id="login"
-      className="flex w-full flex-col items-center justify-center gap-4 text-white"
+      className="flex max-h-min w-full flex-1 flex-col items-center justify-center gap-4 text-white"
     >
       <div className="flex w-full flex-col gap-3">
         <div className="flex items-center justify-between">

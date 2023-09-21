@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default async function Home() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center gap-36 bg-zinc-900 px-12 py-8  text-white  sm:px-16 md:px-20 lg:px-24  xl:px-36">
+    <main className="flex h-full min-h-screen w-full flex-col items-center justify-center gap-36 bg-zinc-900 px-12 py-8  text-white  sm:px-16 md:px-20 lg:px-24  xl:px-36">
       <div className="flex items-center justify-center gap-5">
         <Image
           alt="logo"
