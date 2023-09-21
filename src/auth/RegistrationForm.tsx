@@ -54,8 +54,7 @@ const RegistrationForm = () => {
   }
 
   const checkIsValidPassword = (password: string) => {
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/
     return passwordRegex.test(password)
   }
 
@@ -239,8 +238,8 @@ const RegistrationForm = () => {
           <Label className="text-base font-normal">Senha</Label>
           {!isValidPassword && (
             <p className="text-end text-xs text-red-500">
-              A senha deve conter pelo menos 8 caracteres, uma letra maiúscula,
-              e uma minúscula, um número e um caractere especial
+              A senha deve conter pelo menos 6 caracteres, uma letra maiúscula e
+              um número.
             </p>
           )}
         </div>
