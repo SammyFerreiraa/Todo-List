@@ -58,39 +58,78 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
   const [hours, minutes] = hora.split(':')
 
   return (
-    <div className="inline-flex w-full items-start justify-start gap-3 rounded p-1 shadow">
-      <div className="flex w-full flex-row items-center justify-start gap-3 rounded bg-neutral-900 p-5 shadow">
-        <div onClick={completeTask}>
-          <Checkbox className="h-4 w-4" checked={feitoP} />
-        </div>
-        {feitoP && (
-          <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100 line-through">
-            {nome}
+    <div className="inline-flex w-full items-start justify-start gap-3 rounded-xl p-1 shadow">
+      <div className="flex w-full flex-col items-center justify-start gap-3 rounded-xl bg-neutral-900 p-5 shadow md:flex-row">
+        {/* Mobile View */}
+        <div className="flex w-full flex-col items-center justify-center gap-6 md:hidden">
+          <div className="flex w-full flex-row justify-between">
+            <div onClick={completeTask}>
+              <Checkbox className="h-4 w-4" checked={feitoP} />
+            </div>
+            {feitoP && (
+              <div className="shrink basis-0 text-sm font-normal leading-tight text-zinc-100 line-through">
+                {nome}
+              </div>
+            )}
+            {!feitoP && (
+              <div className="shrink basis-0 text-sm font-normal leading-tight text-zinc-100">
+                {nome}
+              </div>
+            )}
+            <div className="flex flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
+              <Clock className="h-4 w-4" />
+              {hours} : {minutes}
+            </div>
           </div>
-        )}
-        {!feitoP && (
-          <div className="shrink grow basis-0 text-sm font-normal leading-tight text-zinc-100">
-            {nome}
+          {desc !== null && (
+            <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
+              {desc !== '' && <ScrollText className="h-4 w-4" />}
+              {desc}
+            </div>
+          )}
+          <div className="flex flex-row gap-4">
+            <button onClick={() => setOpenModal(!openModal)}>
+              <Edit />
+            </button>
+            <button onClick={deleteTask}>
+              <Trash />
+            </button>
           </div>
-        )}
-        <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
-          <Clock className="h-4 w-4" />
-          {hours} : {minutes}
         </div>
-
-        {desc !== null && (
+        {/* Desktop View  */}
+        <div className="hidden w-full flex-row items-center justify-between md:flex ">
+          <div onClick={completeTask}>
+            <Checkbox className="h-4 w-4" checked={feitoP} />
+          </div>
+          {feitoP && (
+            <div className="shrink grow basis-0 text-center text-sm font-normal leading-tight text-zinc-100 line-through">
+              {nome}
+            </div>
+          )}
+          {!feitoP && (
+            <div className="shrink grow basis-0 text-center text-sm font-normal leading-tight text-zinc-100">
+              {nome}
+            </div>
+          )}
           <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
-            {desc !== '' && <ScrollText className="h-4 w-4" />}
-            {desc}
+            <Clock className="h-4 w-4" />
+            {hours} : {minutes}
           </div>
-        )}
-        <div className="flex flex-row gap-4">
-          <button onClick={() => setOpenModal(!openModal)}>
-            <Edit />
-          </button>
-          <button onClick={deleteTask}>
-            <Trash />
-          </button>
+
+          {desc !== null && (
+            <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
+              {desc !== '' && <ScrollText className="h-4 w-4" />}
+              {desc}
+            </div>
+          )}
+          <div className="flex flex-row gap-4">
+            <button onClick={() => setOpenModal(!openModal)}>
+              <Edit />
+            </button>
+            <button onClick={deleteTask}>
+              <Trash />
+            </button>
+          </div>
         </div>
       </div>
 
