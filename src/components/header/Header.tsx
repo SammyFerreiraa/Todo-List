@@ -53,11 +53,11 @@ const Header = () => {
         />
         <p className="text-xl font-bold text-purple-800">Mountain To-Do</p>
       </div>
+      <div className="mb-4 mr-2 flex items-center justify-center gap-2 md:mb-0 md:mr-0">
+        <User className="h-4 w-4" />
+        <p className="text-sm font-semibold text-white">{userName}</p>
+      </div>
       <div className="flex flex-row items-center justify-center gap-4">
-        <div className="mr-2 flex items-center gap-2">
-          <User className="h-4 w-4" />
-          <p className="text-sm font-semibold text-white">{userName}</p>
-        </div>
         <Button onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
           Logout
