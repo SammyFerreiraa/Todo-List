@@ -160,7 +160,7 @@ const RegistrationForm = () => {
       )}
       {isLogued && (
         <Alert
-          onClose={() => setErrorMessage(false)}
+          onClose={() => setIsLogued(false)}
           className="absolute top-8 items-center justify-center text-gray-200"
           severity="info"
           variant="filled"
