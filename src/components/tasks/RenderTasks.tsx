@@ -9,7 +9,6 @@ import CompletedTasks from './CompletedTasks'
 import LengthTasks from './LengthTasks'
 import { ClockLoader } from 'react-spinners'
 import { AlertTriangle } from 'lucide-react'
-import { Separator } from '../ui/separator'
 
 const RenderTasks = () => {
   const [loading, setLoading] = useState(true)

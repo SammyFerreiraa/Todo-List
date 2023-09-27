@@ -12,6 +12,7 @@ import axios from 'axios'
 import { parseCookies } from 'nookies'
 import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
+import { ClockLoader } from 'react-spinners'
 
 type EditProps = {
   nome: string
@@ -41,6 +42,7 @@ const EditTasks = ({
   const [newHora, setNewHora] = useState('')
   const [newDesc, setNewDesc] = useState('')
   const [newDias, setNewDias] = useState('')
+  const [edited, setEdited] = useState(false)
 
   useEffect(() => {
     setNewName(nome)
@@ -50,17 +52,24 @@ const EditTasks = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const editTask = async () => {
-    await axios.put('https://to-do-mountains.onrender.com/update', {
-      nome: newName,
-      hora: newHora,
-      jwt,
-      id,
-      feito,
-      dias: newDias,
-      desc: newDesc,
-    })
-    window.location.reload()
+  const handleonEditTask = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const editTask = async () => {
+      await axios.put('https://to-do-mountains.onrender.com/update', {
+        nome: newName,
+        hora: newHora,
+        jwt,
+        id,
+        feito,
+        dias: newDias,
+        desc: newDesc,
+      })
+    }
+    editTask()
+    setEdited(true)
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000)
   }
   const handleSelectDay = (dia: string) => {
     setNewDias(dia)
@@ -69,7 +78,12 @@ const EditTasks = ({
   return (
     <div className="fixed inset-0 z-10 bg-black bg-opacity-50 text-gray-200">
       <div className="flex h-full w-full items-center justify-center">
-        <div className="absolute z-50 mx-auto my-0 flex h-3/4 w-3/4 flex-col overflow-hidden rounded-xl bg-neutral-900 shadow-2xl">
+        {edited && (
+          <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
+            <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
+          </div>
+        )}
+        <div className="absolute z-20 mx-auto my-0 flex h-3/4 w-3/4 flex-col overflow-hidden rounded-xl bg-neutral-900 shadow-2xl">
           <Button
             className="absolute right-4 top-4 bg-transparent text-white hover:text-black"
             onClick={() => setOpenModal(!openModal)}
@@ -77,6 +91,7 @@ const EditTasks = ({
             X
           </Button>
           <form
+            onSubmit={handleonEditTask}
             action="#"
             className="flex h-full w-full flex-row items-center justify-center gap-4 p-6"
           >
@@ -131,7 +146,7 @@ const EditTasks = ({
                 className="h-36 w-full"
               />
             </div>
-            <Button onClick={editTask}>Atualizar</Button>
+            <Button type="submit">Atualizar</Button>
           </form>
         </div>
       </div>
