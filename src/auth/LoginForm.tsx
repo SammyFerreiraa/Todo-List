@@ -10,12 +10,15 @@ import Password from '@/components/icons/Password'
 import { Button } from '../components/ui/button'
 import Link from 'next/link'
 import { Alert, AlertTitle } from '@mui/material'
+import { ClockLoader } from 'react-spinners'
 const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isValid, setIsValid] = useState(true)
   const [erroMessage, setErrorMessage] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false)
+  const [isLogued, setIsLogued] = useState(false)
+  const [loggingIn, setLoggingIn] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value
@@ -33,8 +36,10 @@ const LoginForm = () => {
   useEffect(() => {
     const cookies = parseCookies()
     if (cookies.jwtToken) {
-      window.alert('Você já está logado!')
-      window.location.href = '/todos'
+      setIsLogued(true)
+      setTimeout(() => {
+        window.location.href = '/todos'
+      }, 2000)
     }
   }, [])
 
@@ -54,7 +59,10 @@ const LoginForm = () => {
         setCookie(null, 'jwtToken', jwtToken)
         console.log(jwt)
         setSuccessMessage(true)
-        window.location.href = '/todos'
+        setLoggingIn(false)
+        setTimeout(() => {
+          window.location.href = '/todos'
+        }, 2000)
       } else {
         console.log('Erro na solicitação:', response.status, response.data)
       }
@@ -72,6 +80,7 @@ const LoginForm = () => {
     } else {
       e.preventDefault()
       setErrorMessage(false)
+      setLoggingIn(true)
       login()
       setEmail('')
       setPassword('')
@@ -84,6 +93,41 @@ const LoginForm = () => {
       id="login"
       className="flex max-h-min w-full flex-1 flex-col items-center justify-center gap-4 text-white"
     >
+      {loggingIn && (
+        <div className="absolute right-0 top-0 z-10 flex h-full w-full items-center justify-center bg-black/70">
+          <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
+        </div>
+      )}
+      {isLogued && (
+        <Alert
+          onClose={() => setErrorMessage(false)}
+          className="absolute top-8 z-40 items-center justify-center text-gray-200"
+          severity="info"
+          variant="filled"
+        >
+          <AlertTitle>Parabéns</AlertTitle>Você já está logado
+        </Alert>
+      )}
+      {erroMessage && (
+        <Alert
+          onClose={() => setErrorMessage(false)}
+          className="absolute top-8 z-40 items-center justify-center text-gray-200"
+          severity="error"
+          variant="filled"
+        >
+          <AlertTitle>Erro</AlertTitle>Email ou senha incorretos!
+        </Alert>
+      )}
+      {successMessage && (
+        <Alert
+          onClose={() => setSuccessMessage(false)}
+          className="absolute top-8 items-center justify-center  text-gray-200"
+          severity="success"
+          variant="filled"
+        >
+          <AlertTitle>Parabéns</AlertTitle>Você foi logado com sucesso!
+        </Alert>
+      )}
       <div className="flex w-full flex-col gap-3">
         <div className="flex items-center justify-between">
           <Label className="text-base font-normal">Endereço de e-mail</Label>
@@ -128,26 +172,6 @@ const LoginForm = () => {
             placeholder="Digite sua senha"
           />
         </div>
-        {erroMessage && (
-          <Alert
-            onClose={() => setErrorMessage(false)}
-            className="absolute left-1/3 right-1/3 top-8 items-center justify-center text-gray-200"
-            severity="error"
-            variant="filled"
-          >
-            <AlertTitle>Erro</AlertTitle>Email ou senha incorretos!
-          </Alert>
-        )}
-        {successMessage && (
-          <Alert
-            onClose={() => setSuccessMessage(false)}
-            className="absolute left-1/3 right-1/3 top-8 items-center justify-center  text-gray-200"
-            severity="success"
-            variant="filled"
-          >
-            <AlertTitle>Parabéns</AlertTitle>Você foi logado com sucesso!
-          </Alert>
-        )}
       </div>
       <div className="flex w-full  max-w-3xl flex-col gap-3 pt-3">
         <button

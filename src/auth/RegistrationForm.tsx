@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertTitle } from '@mui/material'
 import { CheckIcon } from 'lucide-react'
+import { ClockLoader } from 'react-spinners'
 
 const RegistrationForm = () => {
   const [user, setUser] = useState('')
@@ -27,6 +28,9 @@ const RegistrationForm = () => {
   const [isValidRegister, setIsValidRegister] = useState(true)
   const [errorMessage, setErrorMessage] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false)
+
+  const [isLogued, setIsLogued] = useState(false)
+  const [registering, setRegistering] = useState(false)
 
   const handleInputChangeConfirmPassword = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -86,8 +90,10 @@ const RegistrationForm = () => {
   useEffect(() => {
     const cookies = parseCookies()
     if (cookies.jwtToken) {
-      window.alert('Você já está logado!')
-      window.location.href = '/todos'
+      setIsLogued(true)
+      setTimeout(() => {
+        window.location.href = '/todos'
+      }, 2000)
     }
   }, [])
 
@@ -107,9 +113,10 @@ const RegistrationForm = () => {
 
       if (response.status === 200) {
         setSuccessMessage(true)
+        setRegistering(false)
         setTimeout(() => {
           window.location.href = '/login'
-        }, 1000)
+        }, 2000)
       } else {
         console.log('Erro na solicitação:', response.status, response.data)
       }
@@ -131,7 +138,7 @@ const RegistrationForm = () => {
       e.preventDefault()
     } else {
       e.preventDefault()
-
+      setRegistering(true)
       register()
       setEmail('')
       setPassword('')
@@ -146,6 +153,21 @@ const RegistrationForm = () => {
       id="register"
       className="flex h-full w-full flex-col items-center justify-start gap-2 text-white  "
     >
+      {registering && (
+        <div className="absolute right-0 top-0 z-10 flex h-full w-full items-center justify-center bg-black/70">
+          <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
+        </div>
+      )}
+      {isLogued && (
+        <Alert
+          onClose={() => setErrorMessage(false)}
+          className="absolute top-8 items-center justify-center text-gray-200"
+          severity="info"
+          variant="filled"
+        >
+          <AlertTitle>Parabéns</AlertTitle>Você já está logado
+        </Alert>
+      )}
       {successMessage && (
         <Alert
           onClose={() => setSuccessMessage(false)}
