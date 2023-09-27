@@ -5,7 +5,8 @@ import axios from 'axios'
 import { parseCookies } from 'nookies'
 import Edit from '../icons/Edit'
 import EditTasks from './EditTasks'
-import { Clock, ScrollText } from 'lucide-react'
+import { Clock, ScrollText, X } from 'lucide-react'
+import { Separator } from '../ui/separator'
 
 type TaksProps = {
   nome: string
@@ -61,18 +62,18 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
     <div className="inline-flex w-full items-start justify-start gap-3 rounded-xl p-1 shadow">
       <div className="flex w-full flex-col items-center justify-start gap-3 rounded-xl bg-neutral-900 p-5 shadow md:flex-row">
         {/* Mobile View */}
-        <div className="flex w-full flex-col items-center justify-center gap-6 md:hidden">
+        <div className="flex w-full flex-col items-center justify-center md:hidden">
           <div className="flex w-full flex-row justify-between">
             <div onClick={completeTask}>
               <Checkbox className="h-4 w-4" checked={feitoP} />
             </div>
             {feitoP && (
-              <div className="shrink basis-0 text-sm font-normal leading-tight text-zinc-100 line-through">
+              <div className="shrink basis-0 text-sm font-semibold leading-tight text-zinc-100 line-through">
                 {nome}
               </div>
             )}
             {!feitoP && (
-              <div className="shrink basis-0 text-sm font-normal leading-tight text-zinc-100">
+              <div className="shrink basis-0 text-sm font-semibold leading-tight text-zinc-100">
                 {nome}
               </div>
             )}
@@ -81,12 +82,21 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
               {hours} : {minutes}
             </div>
           </div>
-          {desc !== null && (
+          <Separator className="my-3 bg-zinc-800" />
+          {desc !== '' && (
             <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
-              {desc !== '' && <ScrollText className="h-4 w-4" />}
+              <ScrollText className="h-4 w-4" />
               {desc}
             </div>
           )}
+          {desc === '' && (
+            <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
+              <X className="h-4 w-4" />
+              Sem descrição
+              <X className="h-4 w-4" />
+            </div>
+          )}
+          <Separator className="my-3 bg-zinc-800" />
           <div className="flex flex-row gap-4">
             <button onClick={() => setOpenModal(!openModal)}>
               <Edit />
@@ -102,12 +112,12 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
             <Checkbox className="h-4 w-4" checked={feitoP} />
           </div>
           {feitoP && (
-            <div className="shrink grow basis-0 text-center text-sm font-normal leading-tight text-zinc-100 line-through">
+            <div className="shrink grow basis-0 text-center text-sm font-semibold leading-tight text-zinc-100 line-through">
               {nome}
             </div>
           )}
           {!feitoP && (
-            <div className="shrink grow basis-0 text-center text-sm font-normal leading-tight text-zinc-100">
+            <div className="shrink grow basis-0 text-center text-sm font-semibold leading-tight text-zinc-100">
               {nome}
             </div>
           )}
@@ -116,10 +126,17 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
             {hours} : {minutes}
           </div>
 
-          {desc !== null && (
+          {desc !== '' && (
             <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
-              {desc !== '' && <ScrollText className="h-4 w-4" />}
+              <ScrollText className="h-4 w-4" />
               {desc}
+            </div>
+          )}
+          {desc === '' && (
+            <div className="flex shrink grow basis-0 flex-row items-center gap-2 text-sm font-normal leading-tight text-zinc-100">
+              <X className="h-4 w-4" />
+              Sem descrição
+              <X className="h-4 w-4" />
             </div>
           )}
           <div className="flex flex-row gap-4">

@@ -62,7 +62,7 @@ const RenderTasks = () => {
   }
 
   return (
-    <section className="flex w-full flex-1 flex-col bg-neutral-950 px-12 py-8">
+    <section className="flex w-full flex-1 flex-col bg-neutral-950 px-6 py-4 md:px-12 md:py-8">
       {loading && (
         <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
           <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
@@ -75,7 +75,7 @@ const RenderTasks = () => {
           TasksComplete={completedTasks}
         />
       </div>
-      <div className="flex min-h-full flex-1 flex-col items-center justify-center gap-2 py-10 text-white">
+      <div className="flex flex-1 flex-col items-center justify-center py-4 text-white">
         {TasksLength !== null && TasksLength === 0 && (
           <div className="flex flex-row items-center justify-center gap-4 ">
             <AlertTriangle size={30} className="text-[#6b21a8]" />
@@ -84,11 +84,11 @@ const RenderTasks = () => {
             </p>
           </div>
         )}
-        <div className="grid h-full w-full grid-rows-1 gap-6">
+        <div className="grid w-full grid-rows-1 gap-6">
           {tasks.filter(
             (task) => task.dias === 'Segunda' || task.dias === 'Todos',
           ).length > 0 && (
-            <div>
+            <div className="h-fit">
               <h1 className="flex flex-col items-center justify-center gap-8 rounded-md p-2 font-semibold">
                 SEGUNDA-FEIRA
               </h1>
@@ -109,7 +109,6 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
-              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -136,7 +135,6 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
-              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -163,7 +161,6 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
-              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -190,7 +187,6 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
-              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -217,7 +213,6 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
-              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -244,7 +239,6 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
-              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
 
@@ -271,7 +265,6 @@ const RenderTasks = () => {
                     desc={task.desc}
                   />
                 ))}
-              <Separator className="mt-8 bg-neutral-800" />
             </div>
           )}
         </div>
