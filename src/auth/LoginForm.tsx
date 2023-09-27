@@ -68,6 +68,7 @@ const LoginForm = () => {
       }
     } catch (error) {
       setErrorMessage(true)
+      setLoggingIn(false)
       console.log(erroMessage)
       console.error('Erro na solicitação:', error)
     }
