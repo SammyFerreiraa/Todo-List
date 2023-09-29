@@ -63,61 +63,27 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
     }, 2000)
   }
   return (
-    <div className="fixed inset-0 z-10 bg-black bg-opacity-50 text-gray-200">
+    <div className="fixed inset-0 z-10  bg-black bg-opacity-50 text-gray-50">
       <div className="flex h-full w-full items-center justify-center">
         {added && (
           <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
             <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
           </div>
         )}
-        <div className="absolute flex h-2/4 w-2/4 flex-col items-center justify-center overflow-hidden rounded-xl bg-neutral-900 shadow-2xl">
-          <Button
-            className="absolute right-4 top-4 bg-transparent text-white hover:text-black"
-            onClick={() => setOpenModal(!openModal)}
-          >
-            X
-          </Button>
+        <div className="absolute flex h-auto w-auto flex-col  items-center justify-center gap-4 overflow-hidden rounded-xl bg-neutral-900 px-10 py-6 shadow-xl  sm:h-auto sm:w-fit">
+          <div className="flex w-full flex-row items-center justify-between">
+            <p>Crie sua tarefa!</p>
+            <Button
+              className=" w-fit bg-transparent text-white hover:text-black"
+              onClick={() => setOpenModal(!openModal)}
+            >
+              X
+            </Button>
+          </div>
           <form
             onSubmit={handleOnRegister}
             className="flex flex-col items-center gap-2"
           >
-            {/* <FormControl fullWidth> */}
-            {/* <InputLabel className="text-white">Selecione um dia</InputLabel>
-              <Select
-                variant="filled"
-                required
-                value={dias}
-                onChange={handleChange}
-                className="text-white hover:border-white focus:border-white"
-                autoWidth
-              >
-                <MenuItem className="" value="Segunda">
-                  Segunda-Feira
-                </MenuItem>
-                <MenuItem className="" value="Terca">
-                  Terça-Feira
-                </MenuItem>
-                <MenuItem className="" value="Quarta">
-                  Quarta-Feira
-                </MenuItem>
-                <MenuItem className="" value="Quinta">
-                  Quinta-Feira
-                </MenuItem>
-                <MenuItem className="" value="Sexta">
-                  Sexta-Feira
-                </MenuItem>
-                <MenuItem className="" value="Sabado">
-                  Sabado
-                </MenuItem>
-                <MenuItem className="" value="Domingo">
-                  Domingo
-                </MenuItem>
-                <MenuItem className="" value="Todos">
-                  Todos os dias
-                </MenuItem>
-              </Select>
-            </FormControl> */}
-
             <Select value={dias} onValueChange={handleChange}>
               <SelectTrigger className="">
                 <SelectValue placeholder="Selecione o dia" />
@@ -154,24 +120,24 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
               autoComplete="off"
               onChange={(e) => setNome(e.target.value)}
               value={nome}
-              placeholder="Adicione uma nova tarefa"
+              placeholder="Nome da tarefa"
               className="h-12 w-full p-4 text-gray-300"
             />
-            <div className="flex w-full gap-4 pb-4">
+            <div className="flex w-full flex-col gap-4 pb-4 md:flex-row">
               <Input
                 type="time"
                 onChange={(e) => setHora(e.target.value)}
                 autoComplete="off"
                 value={hora}
                 placeholder="Adicione um horario"
-                className="h-12 w-full  p-4 text-gray-300"
+                className="h-12 w-full p-4 text-gray-300"
               />
               <Input
                 type="text"
                 onChange={(e) => setDesc(e.target.value)}
                 autoComplete="off"
                 value={desc}
-                placeholder="Adicione uma descrição"
+                placeholder="Descrição da tarefa (Opcional)"
                 className="h-12 w-full p-4 text-gray-300"
               />
             </div>
