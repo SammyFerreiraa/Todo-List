@@ -68,9 +68,9 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
         )}
         <div className="absolute flex h-auto w-auto flex-col  items-center justify-center gap-4 overflow-hidden rounded-xl bg-neutral-900 px-10 py-6 shadow-xl  sm:h-auto sm:w-fit">
           <div className="flex w-full flex-row items-center justify-between">
-            <p>Crie sua tarefa!</p>
+            <p className="text-lg font-semibold">Crie sua tarefa!</p>
             <Button
-              className=" w-fit bg-transparent text-white hover:text-black"
+              className=" w-fit bg-transparent font-semibold text-white hover:text-black"
               onClick={() => setOpenModal(!openModal)}
             >
               X

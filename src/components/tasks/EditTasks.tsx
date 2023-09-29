@@ -83,31 +83,34 @@ const EditTasks = ({
             <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
           </div>
         )}
-        <div className="absolute z-20 mx-auto my-0 flex h-3/4 w-3/4 flex-col overflow-hidden rounded-xl bg-neutral-900 shadow-2xl">
-          <Button
-            className="absolute right-4 top-4 bg-transparent text-white hover:text-black"
-            onClick={() => setOpenModal(!openModal)}
-          >
-            X
-          </Button>
+        <div className="absolute z-20 flex h-auto w-auto flex-col gap-2 overflow-hidden rounded-xl bg-neutral-900 px-10 py-6 shadow-xl sm:h-auto sm:w-3/5">
+          <div className="flex w-full flex-row items-center justify-between">
+            <p className="text-lg font-semibold">Edite sua tarefa!</p>
+            <Button
+              className=" w-fit bg-transparent font-semibold text-white hover:text-black"
+              onClick={() => setOpenModal(!openModal)}
+            >
+              X
+            </Button>
+          </div>
           <form
             onSubmit={handleonEditTask}
             action="#"
-            className="flex h-full w-full flex-row items-center justify-center gap-4 p-6"
+            className="flex h-full w-full flex-col items-center justify-evenly gap-2"
           >
-            <div className="flex h-full w-full flex-col items-center justify-center gap-6">
-              <div className="items-left flex w-3/4 flex-col justify-center gap-4">
+            <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+              <div className="items-left flex w-full flex-col justify-center gap-1">
                 <label>Nome</label>
                 <Input
                   type="text"
                   placeholder="Digite o nome da tarefa"
-                  className="w-full "
+                  className="w-full"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                 />
               </div>
-              <div className="items-left flex w-3/4 flex-col justify-center gap-4">
-                <label>Horario</label>
+              <div className="items-left flex w-full flex-col justify-center gap-1">
+                <label>Horário</label>
                 <Input
                   type="time"
                   placeholder="Digite o Horario Desejado"
@@ -116,7 +119,7 @@ const EditTasks = ({
                   onChange={(e) => setNewHora(e.target.value)}
                 />
               </div>
-              <div className="items-left gap- flex w-3/4 flex-col justify-center ">
+              <div className="items-left flex w-full flex-col justify-center">
                 <Select value={newDias} onValueChange={handleSelectDay}>
                   <SelectTrigger className="">
                     <SelectValue placeholder="Selecione o dia" />
@@ -137,16 +140,18 @@ const EditTasks = ({
               </div>
             </div>
 
-            <div className="items-left flex w-3/4 flex-col justify-center gap-4">
+            <div className="items-left flex w-full flex-col justify-center gap-1">
               <label>Descrição</label>
               <Textarea
                 value={newDesc}
                 onChange={(e) => setNewDesc(e.target.value)}
                 placeholder="Digite a descrição desejada"
-                className="h-36 w-full"
+                className="h-36 max-h-36 w-full"
               />
             </div>
-            <Button type="submit">Atualizar</Button>
+            <Button className="mt-2 w-full" type="submit">
+              Atualizar
+            </Button>
           </form>
         </div>
       </div>
