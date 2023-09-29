@@ -55,10 +55,6 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
     addTask()
     setAdded(true)
     setTimeout(() => {
-      setNome('')
-      setHora('')
-      setDesc('')
-      setDias('')
       window.location.reload()
     }, 2000)
   }
