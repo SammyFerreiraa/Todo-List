@@ -26,7 +26,6 @@ const Header = () => {
       const responde = await axios.get(
         `https://to-do-mountains.onrender.com/auth/getUser/${encodedJwt}`,
       )
-      console.log(responde.data)
       const data = responde.data
       setUserName(data.User)
     }

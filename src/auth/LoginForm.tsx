@@ -57,7 +57,6 @@ const LoginForm = () => {
         const jwtToken = response.data
         setJwt(jwtToken)
         setCookie(null, 'jwtToken', jwtToken)
-        console.log(jwt)
         setSuccessMessage(true)
         setLoggingIn(false)
         setTimeout(() => {

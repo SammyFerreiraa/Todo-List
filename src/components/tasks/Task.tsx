@@ -7,25 +7,31 @@ import Edit from '../icons/Edit'
 import EditTasks from './EditTasks'
 import { Clock, ScrollText, X } from 'lucide-react'
 import { Separator } from '../ui/separator'
+import { useTasks } from './StateTask'
 
 type TaksProps = {
   nome: string
   hora: string
   id: number
-  feito: boolean
-  desc: string
+  feito?: boolean
+  desc?: string
   dias: string
-  recharge: () => void
 }
 
-const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
+const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
   const cookies = parseCookies()
   const jwt = cookies.jwtToken
+
+  const [updateTask, removeTask] = useTasks((state) => [
+    state.updateCompleteTask,
+    state.removeTask,
+  ])
 
   const [feitoP, setFeitoP] = useState(feito)
   const [openModal, setOpenModal] = useState(false)
 
   const deleteTask = async () => {
+    removeTask(id)
     await axios.delete('https://to-do-mountains.onrender.com/delete', {
       data: {
         nome,
@@ -33,16 +39,15 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
         id,
       },
     })
-    recharge()
   }
 
   const completeTask = async () => {
+    updateTask(id)
     const newFeito = !feito
-    console.log('1')
+
     feito = newFeito
-    console.log('2')
+
     setFeitoP(newFeito)
-    console.log('3')
 
     await axios.put('https://to-do-mountains.onrender.com/update', {
       nome,
@@ -53,7 +58,6 @@ const Task = ({ nome, hora, feito, id, desc, dias, recharge }: TaksProps) => {
       dias,
       desc,
     })
-    recharge()
   }
 
   const [hours, minutes] = hora.split(':')

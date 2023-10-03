@@ -13,16 +13,17 @@ import { parseCookies } from 'nookies'
 import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
 import { ClockLoader } from 'react-spinners'
+import { useTasks } from './StateTask'
 
 type EditProps = {
   nome: string
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
   openModal: boolean
   hora: string
-  desc: string
+  desc?: string
   dias: string
   id: number
-  feito: boolean
+  feito?: boolean
 }
 
 const cookies = parseCookies()
@@ -42,17 +43,28 @@ const EditTasks = ({
   const [newHora, setNewHora] = useState('')
   const [newDesc, setNewDesc] = useState('')
   const [newDias, setNewDias] = useState('')
-  const [edited, setEdited] = useState(false)
+
+  const updateTask = useTasks((state) => state.updateTask)
 
   useEffect(() => {
     setNewName(nome)
     setNewHora(hora)
-    setNewDesc(desc)
+    if (desc) {
+      setNewDesc(desc)
+    }
     setNewDias(dias)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleonEditTask = async (e: React.FormEvent<HTMLFormElement>) => {
+    updateTask(id, {
+      id,
+      nome: newName,
+      hora: newHora,
+      desc: newDesc,
+      dias: newDias,
+      feito,
+    })
     e.preventDefault()
     const editTask = async () => {
       await axios.put('https://to-do-mountains.onrender.com/update', {
@@ -66,23 +78,15 @@ const EditTasks = ({
       })
     }
     editTask()
-    setEdited(true)
-    setTimeout(() => {
-      window.location.reload()
-    }, 2000)
+    setOpenModal(!openModal)
   }
+
   const handleSelectDay = (dia: string) => {
     setNewDias(dia)
-    console.log(dia)
   }
   return (
     <div className="fixed inset-0 z-10 bg-black bg-opacity-50 text-gray-200">
       <div className="flex h-full w-full items-center justify-center">
-        {edited && (
-          <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
-            <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
-          </div>
-        )}
         <div className="absolute z-20 flex h-auto w-auto flex-col gap-2 overflow-hidden rounded-xl bg-neutral-900 px-10 py-6 shadow-xl sm:h-auto sm:w-3/5">
           <div className="flex w-full flex-row items-center justify-between">
             <p className="text-lg font-semibold">Edite sua tarefa!</p>
