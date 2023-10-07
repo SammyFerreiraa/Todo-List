@@ -20,6 +20,8 @@ const LoginForm = () => {
   const [isLogued, setIsLogued] = useState(false)
   const [loggingIn, setLoggingIn] = useState(false)
 
+  const loginURL = process.env.NEXT_PUBLIC_URL_LOGIN || ''
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value
     setEmail(newEmail)
@@ -45,13 +47,10 @@ const LoginForm = () => {
 
   const login = async () => {
     try {
-      const response = await axios.post(
-        'https://to-do-mountains.onrender.com/auth/login',
-        {
-          email,
-          password,
-        },
-      )
+      const response = await axios.post(loginURL, {
+        email,
+        password,
+      })
 
       if (response.status === 200) {
         const jwtToken = response.data

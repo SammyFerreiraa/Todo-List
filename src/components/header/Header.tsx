@@ -13,6 +13,8 @@ const Header = () => {
   const jwt = cookies.jwtToken
   const encodedJwt = encodeURIComponent(jwt)
 
+  const getUsersUrl = process.env.NEXT_PUBLIC_URL_GETUSERS || ''
+
   const [openModal, setOpenModal] = useState(false)
 
   const [userName, setUserName] = useState('')
@@ -23,9 +25,7 @@ const Header = () => {
     }
 
     const fetchUserName = async () => {
-      const responde = await axios.get(
-        `https://to-do-mountains.onrender.com/auth/getUser/${encodedJwt}`,
-      )
+      const responde = await axios.get(`${getUsersUrl}${encodedJwt}`)
       const data = responde.data
       setUserName(data.User)
     }

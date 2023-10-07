@@ -27,12 +27,15 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
     state.removeTask,
   ])
 
+  const deleteTaskUrl = process.env.NEXT_PUBLIC_URL_DELETE_TASK || ''
+  const editTaskUrl = process.env.NEXT_PUBLIC_URL_EDIT_TASK || ''
+
   const [feitoP, setFeitoP] = useState(feito)
   const [openModal, setOpenModal] = useState(false)
 
   const deleteTask = async () => {
     removeTask(id)
-    await axios.delete('https://to-do-mountains.onrender.com/delete', {
+    await axios.delete(deleteTaskUrl, {
       data: {
         nome,
         jwt,
@@ -49,7 +52,7 @@ const Task = ({ nome, hora, feito, id, desc, dias }: TaksProps) => {
 
     setFeitoP(newFeito)
 
-    await axios.put('https://to-do-mountains.onrender.com/update', {
+    await axios.put(editTaskUrl, {
       nome,
       hora,
       jwt,

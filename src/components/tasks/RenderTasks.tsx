@@ -14,6 +14,8 @@ import { useTasks } from './StateTask'
 const RenderTasks = () => {
   const [loading, setLoading] = useState(true)
 
+  const renderTaskUrl = process.env.NEXT_PUBLIC_URL_RENDER_TASK || ''
+
   const [
     tasksMng,
     addTasks,
@@ -35,9 +37,7 @@ const RenderTasks = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(
-          `https://to-do-mountains.onrender.com/tasks/${encodedJwt}`,
-        )
+        const response = await axios.get(`${renderTaskUrl}${encodedJwt}`)
         const TasksData: TaskType[] = response.data
         const data = TasksData.sort((a, b) => a.hora.localeCompare(b.hora))
         data.map((task) => addTasks(task))

@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { Alert, AlertTitle } from '@mui/material'
 import { CheckIcon } from 'lucide-react'
 import { ClockLoader } from 'react-spinners'
+import { setTimeout } from 'timers'
 
 const RegistrationForm = () => {
   const [user, setUser] = useState('')
@@ -31,6 +32,8 @@ const RegistrationForm = () => {
 
   const [isLogued, setIsLogued] = useState(false)
   const [registering, setRegistering] = useState(false)
+
+  const registerUrl = process.env.NEXT_PUBLIC_URL_REGISTER || ''
 
   const handleInputChangeConfirmPassword = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -106,10 +109,7 @@ const RegistrationForm = () => {
 
   const register = async () => {
     try {
-      const response = await axios.post(
-        'https://to-do-mountains.onrender.com/auth/register',
-        data,
-      )
+      const response = await axios.post(registerUrl, data)
 
       if (response.status === 200) {
         setSuccessMessage(true)

@@ -46,6 +46,8 @@ const EditTasks = ({
 
   const updateTask = useTasks((state) => state.updateTask)
 
+  const editTaskUrl = process.env.NEXT_PUBLIC_URL_EDIT_TASK || ''
+
   useEffect(() => {
     setNewName(nome)
     setNewHora(hora)
@@ -67,7 +69,7 @@ const EditTasks = ({
     })
     e.preventDefault()
     const editTask = async () => {
-      await axios.put('https://to-do-mountains.onrender.com/update', {
+      await axios.put(editTaskUrl, {
         nome: newName,
         hora: newHora,
         jwt,

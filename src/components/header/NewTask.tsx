@@ -26,6 +26,8 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
 
   const [added, setAdded] = useState(false)
 
+  const newTaskUrl = process.env.NEXT_PUBLIC_URL_NEW_TASK || ''
+
   const handleChange = (newDia: string) => {
     setDias(newDia)
   }
@@ -36,7 +38,7 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
     if (nome === '' || hora === '') return
 
     const addTask = async () => {
-      await axios.post('https://to-do-mountains.onrender.com/insert', {
+      await axios.post(newTaskUrl, {
         nome,
         hora,
         dias,
