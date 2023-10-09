@@ -30,7 +30,24 @@ export const useTasks = create<TaskTypeProps>((set) => ({
   lengthTasks: null, // Quantidade de tasks
   setLengthTasks: (lengthTasks) => set({ lengthTasks }), // Setar quantidade de tasks
 
-  addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })), // Adicionar task
+  addTask: (task) =>
+    set((state) => {
+      // Verificar se já existe uma tarefa com o mesmo ID, nome e hora
+      const isDuplicate = state.tasks.some(
+        (existingTask) =>
+          existingTask.id === task.id &&
+          existingTask.nome === task.nome &&
+          existingTask.hora === task.hora,
+      )
+
+      // Se não for um duplicado, adicione a tarefa
+      if (!isDuplicate) {
+        return { tasks: [...state.tasks, task] }
+      }
+
+      // Caso contrário, retorne o estado atual sem fazer alterações
+      return state
+    }),
 
   // Remover task
   removeTask: (id) =>

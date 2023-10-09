@@ -10,7 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
-import ClockLoader from 'react-spinners/ClockLoader'
+import { useTasks } from '../tasks/StateTask'
+import { TaskType } from '@/models/TaskType'
 
 type newTaskType = {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
@@ -24,9 +25,16 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
   const [dias, setDias] = useState('')
   const [desc, setDesc] = useState('')
 
-  const [added, setAdded] = useState(false)
+  const encodedJwt = encodeURIComponent(jwt)
+
+  const [newTaskMng, setLengthTasks, setCompletedTasks] = useTasks((state) => [
+    state.addTask,
+    state.setLengthTasks,
+    state.setCompleteTask,
+  ])
 
   const newTaskUrl = process.env.NEXT_PUBLIC_URL_NEW_TASK || ''
+  const renderTaskUrl = process.env.NEXT_PUBLIC_URL_RENDER_TASK || ''
 
   const handleChange = (newDia: string) => {
     setDias(newDia)
@@ -35,7 +43,7 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
   const handleOnRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (nome === '' || hora === '') return
+    if (nome === '' || hora === '' || dias === '') return
 
     const addTask = async () => {
       await axios.post(newTaskUrl, {
@@ -45,21 +53,21 @@ const NewTask = ({ setOpenModal, openModal, jwt }: newTaskType) => {
         desc,
         jwt,
       })
+
+      const response = await axios.get(`${renderTaskUrl}${encodedJwt}`)
+      const TasksData: TaskType[] = response.data
+      const data = TasksData.sort((a, b) => a.hora.localeCompare(b.hora))
+      data.map((task) => newTaskMng(task))
+      setCompletedTasks(data.filter((task) => task.feito).length)
+      setLengthTasks(data.length)
     }
     addTask()
-    setAdded(true)
-    setTimeout(() => {
-      window.location.reload()
-    }, 2000)
+
+    setOpenModal(!openModal)
   }
   return (
     <div className="fixed inset-0 z-10  bg-black bg-opacity-50 text-gray-50">
       <div className="flex h-full w-full items-center justify-center">
-        {added && (
-          <div className="absolute right-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
-            <ClockLoader size={50} color="#6b21a8" speedMultiplier={3} />
-          </div>
-        )}
         <div className="absolute flex h-auto w-auto flex-col  items-center justify-center gap-4 overflow-hidden rounded-xl bg-neutral-900 px-10 py-6 shadow-xl  sm:h-auto sm:w-fit">
           <div className="flex w-full flex-row items-center justify-between">
             <p className="text-lg font-semibold">Crie sua tarefa!</p>
