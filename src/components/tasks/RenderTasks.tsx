@@ -64,7 +64,11 @@ const RenderTasks = () => {
         <LengthTasks />
         <CompletedTasks />
       </div>
-      <div className="flex flex-1 flex-col items-center justify-center py-4 text-white">
+      <div
+        className={`flex flex-1 flex-col  py-4 text-white ${
+          lengthTasks ? 'items-center' : 'items-center justify-center'
+        }`}
+      >
         {lengthTasks === null ||
           (lengthTasks === 0 && (
             <div className="flex flex-row items-center justify-center gap-4 ">
